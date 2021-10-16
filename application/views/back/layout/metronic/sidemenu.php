@@ -78,7 +78,7 @@
 												</span>
 											</li>
 											<li class="menu-item" aria-haspopup="true">
-												<a href="layout/themes/aside-light.html" class="menu-link">
+                                            <a href="<?= site_url('panel/website'); ?>" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
 													</i>
@@ -86,7 +86,7 @@
 												</a>
 											</li>
 											<li class="menu-item menu" aria-haspopup="true">
-												<a href="layout/themes/header-dark.html" class="menu-link">
+                                            <a href="<?= site_url('panel/meta'); ?>" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
 													</i>

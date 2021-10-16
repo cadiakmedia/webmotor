@@ -146,7 +146,7 @@ class Feature extends MY_Controller
         $csrf_name = $this->security->get_csrf_token_name();
         $csrf_hash = $this->security->get_csrf_hash();  
         $timestamp = date("Y-m-d H:i:s");
-        $id_user = $this->session->userdata('id');
+        $id_user = $this->session->userdata('id_user');
         $nama_id='id';
         $tabel='em_foto'; 
 
@@ -172,6 +172,7 @@ class Feature extends MY_Controller
                 'judul'=> $this->input->post('judul'),
                 'created_by'=>$id_user
             );
+       
             $update1 = $this->M_crud->create_data($tabel,$data);
             if($update1){
             $array = array(

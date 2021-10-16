@@ -15,9 +15,13 @@ class Welcome extends MY_Controller {
 
 	public function index()
 	{
-
+        $this->load->model('M_crud');
+        $tabel ='em_foto';
+        $foto = $this->M_crud->get_data_not_del($tabel);
+        $random = $foto[Rand(0, count($foto) - 1)];
+     
         $data = [
-
+            'foto'=> $random,
         ];
 		$this->front($data,'front/konten/home.php');
 	}

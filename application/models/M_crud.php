@@ -17,6 +17,16 @@ class M_crud extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_data_not_del($tabel)
+    {
+        
+        $this->db->select('*');
+        $this->db->from($tabel);
+        $this->db->where('is_del', '0');
+        $this->db->where('status', '1');
+        $query = $this->db->get();
+        return $query->result();
+    }
  
     public function get_data_by_slug($tabel,$nama_slug, $slug)
     {

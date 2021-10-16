@@ -125,8 +125,10 @@ $(document).on('click','#tampil', function(){
                                   type: 'success',
                                   title: 'Data berhasil Ditambahkan',
                                   
-                              })
-                              location.reload(); 
+                              }).then(function() {  
+                 location.reload(); 
+
+});
                             }
                 }
 	        });
@@ -219,9 +221,11 @@ $(document).on('click','#tampil', function(){
               $('input[name=token_emot]').val(data.token_emot);
              
                 var img = document.createElement("img");
+   
                 img.src = "<?php echo base_url('/galery/')?>"+ data['data']['foto'];
                 var src = document.getElementById("foto2");
                 src.appendChild(img);
+                
                 document.getElementById("judul_edit").value = data['data']['judul'];
                 
                           
@@ -271,8 +275,10 @@ $(document).on('click','#tampil', function(){
                                   type: 'success',
                                   title: 'Data berhasil Ditambahkan',
                                   
-                              })
-                              location.reload(); 
+                              }).then(function() {  
+                 location.reload(); 
+
+});
                             }
                 }
 	        });
