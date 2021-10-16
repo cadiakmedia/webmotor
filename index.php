@@ -1,262 +1,315 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/img/favicon.png">
-    <title>Elang Motor Indonesia - Kredit Syariah Tanpa Riba Sepeda Motor Honda dan Yamaha</title>
-    <link rel="stylesheet" href="assets/css/plugins.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="preload" href="assets/css/fonts/dm.css" as="style" onload="this.rel='stylesheet'">
-    <style>
-        .bg-atas {
-            background-color: #c00900;
-        }
+/*
+ *---------------------------------------------------------------
+ * APPLICATION ENVIRONMENT
+ *---------------------------------------------------------------
+ *
+ * You can load different configurations depending on your
+ * current environment. Setting the environment also influences
+ * things like logging and error reporting.
+ *
+ * This can be set to anything, but default usage is:
+ *
+ *     development
+ *     testing
+ *     production
+ *
+ * NOTE: If you change these, also change the error_reporting() code below
+ */
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
-        .btn-utama {
-            background-color: #c00900;
-        }
+/*
+ *---------------------------------------------------------------
+ * ERROR REPORTING
+ *---------------------------------------------------------------
+ *
+ * Different environments will require different levels of error reporting.
+ * By default development will show errors but testing and live will hide them.
+ */
+switch (ENVIRONMENT)
+{
+	case 'development':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+	break;
 
-        .col-centered {
-            float: none;
-            margin: 0 auto;
-        }
-    </style>
-</head>
+	case 'testing':
+	case 'production':
+		ini_set('display_errors', 0);
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
+	break;
 
-<body>
-    <div class="content-wrapper">
-        <header class="wrapper bg-light">
-            <div class="bg-atas text-white fw-bold fs-15 mb-2">
-                <div class="container py-2 d-md-flex flex-md-row">
-                    <div class="d-flex flex-row align-items-center">
-                        <div class="icon text-white fs-22 mt-1 me-2"> <i class="uil uil-location-pin-alt"></i></div>
-                        <address class="mb-0">Thamrin City, Jakarta Pusat</address>
-                    </div>
-                    <div class="d-flex flex-row align-items-center me-6 ms-auto">
-                        <div class="icon text-white fs-22 mt-1 me-2"> <i class="uil uil-phone-volume"></i></div>
-                        <p class="mb-0">0852 1858 3131</p>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                        <div class="icon text-white fs-22 mt-1 me-2"> <i class="uil uil-message"></i></div>
-                        <p class="mb-0"><a href="mailto:elangmotorindonesia@gmail.com" class="link-white hover">elangmotorindonesia@gmail.com</a></p>
-                    </div>
-                </div>
-                <!-- /.container -->
-            </div>
-            <nav class="navbar center-nav transparent navbar-expand-lg navbar-light">
-                <div class="container flex-lg-row flex-nowrap align-items-center">
-                    <div class="navbar-brand w-100"><a href=""><img src="assets/img/logo.png" alt="" /></a></div>
-                    <div class="navbar-collapse offcanvas-nav">
-                        <div class="offcanvas-header d-lg-none d-xl-none">
-                            <a href="start.html"><img src="assets/img/logo-light.png" alt="" /></a>
-                            <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
-                        </div>
-                        <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="">Beranda</a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="https://kredit.elangmotor.com">Pengajuan Kredit</a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="https://kredit.elangmotor.com/page/persyaratan-pengajuan-kredit-motor">Syarat Kredit</a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="https://kerjasama.elangmotor.com">Kemitraan</a>
-                            </li>
-                            <li class="nav-item dropdown"><a class="nav-link" href="https://arsip.elangmotor.com">Arsip Akad</a>
-                            </li>
+	default:
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'The application environment is not set correctly.';
+		exit(1); // EXIT_ERROR
+}
 
-                        </ul>
-                        <!-- /.navbar-nav -->
-                    </div>
-                    <!-- /.navbar-collapse -->
-                    <div class="navbar-other w-100 d-flex ms-auto">
-                        <ul class="navbar-nav flex-row align-items-center ms-auto" data-sm-skip="true">
-                            <li class="nav-item d-none d-md-block">
-                                <a href="https://wa.me/6285374807301" class="btn btn-sm btn-success rounded-pill" target="_blank">
-                                    Whatsapp Admin
-                                </a>
-                            </li>
-                            <li class="nav-item d-lg-none">
-                                <div class="navbar-hamburger"><button class="hamburger animate plain" data-toggle="offcanvas-nav"><span></span></button></div>
-                            </li>
-                        </ul>
-                        <!-- /.navbar-nav -->
-                    </div>
-                    <!-- /.navbar-other -->
-                </div>
-                <!-- /.container -->
-            </nav>
-            <!-- /.navbar -->
-        </header>
-        <!-- /header -->
-        <section class="wrapper bg-light">
-            <div class="container pt-8 pt-md-14">
-                <div class="row gx-lg-0 gx-xl-8 gy-10 gy-md-13 gy-lg-0 mb-7 mb-md-10 mb-lg-16 align-items-center">
-                    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-1 position-relative order-lg-2" data-cue="zoomIn">
-                        <div class="shape bg-dot primary rellax w-17 h-19" data-rellax-speed="1" style="top: -1.7rem; left: -1.5rem;"></div>
-                        <div class="shape rounded bg-soft-primary rellax d-md-block" data-rellax-speed="0" style="bottom: -1.8rem; right: -0.8rem; width: 85%; height: 90%;"></div>
-                        <figure class="rounded"><img src="assets/img/akad.png" alt="" /></figure>
-                    </div>
-                    <!--/column -->
-                    <div class="col-lg-5 mt-lg-n10 text-center text-lg-start" data-cues="slideInDown" data-group="page-title" data-delay="600">
-                        <h1 class="display-1 mb-5">Telah Hadir di 63 Kota Indonesia Untuk Pelayanan Kredit Syariah Tanpa Riba</h1>
-                        <p class="lead fs-25 lh-sm mb-7 px-md-10 px-lg-0">Khusus untuk sepeda motor merek <b class="text-danger">Honda</b> dan <b class="text-primary">Yamaha</b>.</p>
-                        <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
-                            <span><a href="https://kredit.elangmotor.com/" class="btn btn-lg btn-danger rounded-pill me-2">Pengajuan Kredit</a></span>
-                            <span><a href="https://kredit.elangmotor.com/page/persyaratan-pengajuan-kredit-motor" class="btn btn-lg btn-outline-danger rounded-pill">Syarat Kredit</a></span>
-                        </div>
-                    </div>
-                    <!--/column -->
-                </div>
-                <!-- /.row -->
+/*
+ *---------------------------------------------------------------
+ * SYSTEM DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * This variable must contain the name of your "system" directory.
+ * Set the path if it is not in the same directory as this file.
+ */
+	$system_path = 'system';
 
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
+/*
+ *---------------------------------------------------------------
+ * APPLICATION DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * directory than the default one you can set its name here. The directory
+ * can also be renamed or relocated anywhere on your server. If you do,
+ * use an absolute (full) server path.
+ * For more info please see the user guide:
+ *
+ * https://codeigniter.com/user_guide/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ */
+	$application_folder = 'application';
 
-            <!-- /.container-fluid -->
+/*
+ *---------------------------------------------------------------
+ * VIEW DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want to move the view directory out of the application
+ * directory, set the path to it here. The directory can be renamed
+ * and relocated anywhere on your server. If blank, it will default
+ * to the standard location inside your application directory.
+ * If you do move this, use an absolute (full) server path.
+ *
+ * NO TRAILING SLASH!
+ */
+	$view_folder = '';
 
-            <!-- /section -->
-            <!--/.container -->
-        </section>
-        <section class="wrapper bg-light">
-            <div class="container py-14 py-md-16">
-                <div class="row gy-6">
-                    <div class="col-lg-4">
-                        <h2 class="display-4 mt-lg-18 mb-3">Layanan Kami</h2>
-                        <p class="lead fs-lg">Kami Menawarkan <span class="underline">layanan terbaik</span>, untuk kredit motor dan peluang kerja sama bisnis.</p>
-                        <p>Peluang bisnis kemitraan <b><a href="#" class="hover">bisa dapat untung hingga 40%</a></b> dan bisa bantu ummat.</p>
-                        <!-- <a href="#" class="btn btn-primary rounded-pill mt-2">See All Prices</a> -->
-                    </div>
-                    <!--/column -->
-                    <div class="col-lg-7 offset-lg-1 pricing-wrapper">
-                        <!-- <div class="pricing-switcher-wrapper switcher justify-content-start justify-content-lg-end">
-                            <p class="mb-0 pe-3">Monthly</p>
-                            <div class="pricing-switchers">
-                                <div class="pricing-switcher pricing-switcher-active"></div>
-                                <div class="pricing-switcher"></div>
-                                <div class="switcher-button bg-primary"></div>
-                            </div>
-                            <p class="mb-0 ps-3">Yearly <span class="text-red">(Save 30%)</span></p>
-                        </div> -->
-                        <div class="row gy-6 position-relative mt-5">
-                            <div class="shape bg-dot primary rellax w-16 h-18" data-rellax-speed="1" style="bottom: -0.5rem; right: -1.6rem;"></div>
-                            <div class="shape rounded-circle bg-line red rellax w-18 h-18" data-rellax-speed="1" style="top: -1rem; left: -2rem;"></div>
-                            <div class="col-md-6">
-                                <div class="pricing card">
-                                    <div class="card-body pb-12">
-                                        <div class="prices text-dark">
-                                            <div class="price price-show"><span class="price-currency">DP MULAI</span><span class="price-value">3,8</span> <span class="price-currency">Juta</span></div>
-                                        </div>
-                                        <!--/.prices -->
-                                        <h4 class="card-title mt-2">Pengajuan Kredit</h4>
-                                        <ul class="icon-list bullet-bg bullet-soft-primary mt-8 mb-9">
-                                            <li><i class="uil uil-check"></i><span><strong>Akad</strong> Murni Jual Beli </span></li>
-                                            <li><i class="uil uil-check"></i><span><strong>Tanpa</strong> Bunga </span></li>
-                                            <li><i class="uil uil-check"></i><span><strong>Tanpa</strong> Riba Asuransi </span></li>
-                                            <li><i class="uil uil-check"></i><span><strong>Tanpa</strong> Denda </span></li>
-                                        </ul>
-                                        <a href="https://kredit.elangmotor.com" class="btn btn-danger rounded-pill">Pengajuan Kredit</a>
-                                    </div>
-                                    <!--/.card-body -->
-                                </div>
-                                <!--/.pricing -->
-                            </div>
-                            <!--/column -->
-                            <div class="col-md-6 popular">
-                                <div class="pricing card">
-                                    <div class="card-body pb-12">
-                                        <div class="prices text-dark">
-                                            <div class="price price-show"><span class="price-currency">Untung Hingga</span><span class="price-value">40</span> <span class="price-currency">%</span></div>
-                                        </div>
-                                        <!--/.prices -->
-                                        <h4 class="card-title mt-2">Peluang Kemitraan</h4>
-                                        <ul class="icon-list bullet-bg bullet-soft-primary mt-8 mb-9">
-                                            <li><i class="uil uil-check"></i><span><strong>Bisa</strong> Bantu Ummat </span></li>
-                                            <li><i class="uil uil-check"></i><span><strong>Bisa</strong> Dapat Untung </span></li>
-                                            <li><i class="uil uil-check"></i><span><strong>Bisnis</strong> Penuh Berkah </span></li>
-                                            <li><i class="uil uil-check"></i><span><strong>Indonesia</strong> Bebas Riba </span></li>
-                                        </ul>
-                                        <a href="https://kerjasama.elangmotor.com" class="btn btn-danger rounded-pill">Informasi Kemitraan</a>
-                                    </div>
-                                    <!--/.card-body -->
-                                </div>
-                                <!--/.pricing -->
-                            </div>
-                            <!--/column -->
-                        </div>
-                        <!--/.row -->
-                    </div>
-                    <!--/column -->
-                </div>
-                <!--/.row -->
-            </div>
-            <!-- /.container -->
-        </section>
-        <!-- /section -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="bg-light">
-        <div class="container py-13 py-md-15">
-            <div class="row gy-6 gy-lg-0">
-                <div class="col-md-4 col-lg-3">
-                    <div class="widget">
-                        <img class="mb-4" src="assets/img/logo.png" alt="Elang Motor Indonesia" />
-                        <p class="mb-4">© <?= date('Y'); ?> Elang Motor Indonesia. <br class="d-none d-lg-block" />All rights reserved.</p>
-                        <nav class="nav social">
-                            <a href="https://www.facebook.com/elangmotorindonesia" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/elangmotor.indonesia/" target="_blank"><i class="uil uil-instagram"></i></a>
-                            <a href="#"><i class="uil uil-youtube"></i></a>
-                        </nav>
-                        <!-- /.social -->
-                    </div>
-                    <!-- /.widget -->
-                </div>
-                <!-- /column -->
-                <div class="col-md-4 col-lg-3">
-                    <div class="widget">
-                        <h4 class="widget-title mb-3">Get in Touch</h4>
-                        <address class="pe-xl-15 pe-xxl-17">Cosmo Terrace – Thamrin City Lantai 10 No. 1 Jl Kh. Mas Mansyur, Kec. Tanah Abang, Jakarta Pusat</address>
-                        <a href="mailto:#" class="link-body">elangmotorindonesia@email.com</a><br /> 0852 1858 3131
-                    </div>
-                    <!-- /.widget -->
-                </div>
-                <!-- /column -->
-                <div class="col-md-4 col-lg-3">
-                    <div class="widget">
-                        <h4 class="widget-title mb-3">Link Terkait</h4>
-                        <ul class="list-unstyled text-reset mb-0">
-                            <li><a href="https://kredit.elangmotor.com">Informasi Kredit</a></li>
-                            <li><a href="https://kerjasama.elangmotor.com">Informasi Kemitraan</a></li>
-                            <li><a href="https://kredit.elangmotor.com/cabang">Dafatar Cabang</a></li>
-                        </ul>
-                    </div>
-                    <!-- /.widget -->
-                </div>
-                <!-- /column -->
-                <div class="col-md-12 col-lg-3">
-                    <div class="widget">
-                        <h4 class="widget-title mb-3">Ayo Menuju Indonesia Bebas Riba</h4>
-                        <p class="mb-5">Kalau Solusi Kredit Syariah Tanpa Riba Tersedia, Kenapa Masih Memilih Kredit Riba?</p>
-                        <!-- /.newsletter-wrapper -->
-                    </div>
-                    <!-- /.widget -->
-                </div>
-                <!-- /column -->
-            </div>
-            <!--/.row -->
-        </div>
-        <!-- /.container -->
-    </footer>
-    <div class="progress-wrap">
-        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-        </svg>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/theme.js"></script>
-</body>
 
-</html>
+/*
+ * --------------------------------------------------------------------
+ * DEFAULT CONTROLLER
+ * --------------------------------------------------------------------
+ *
+ * Normally you will set your default controller in the routes.php file.
+ * You can, however, force a custom routing by hard-coding a
+ * specific controller class/function here. For most applications, you
+ * WILL NOT set your routing here, but it's an option for those
+ * special instances where you might want to override the standard
+ * routing in a specific front controller that shares a common CI installation.
+ *
+ * IMPORTANT: If you set the routing here, NO OTHER controller will be
+ * callable. In essence, this preference limits your application to ONE
+ * specific controller. Leave the function name blank if you need
+ * to call functions dynamically via the URI.
+ *
+ * Un-comment the $routing array below to use this feature
+ */
+	// The directory name, relative to the "controllers" directory.  Leave blank
+	// if your controller is not in a sub-directory within the "controllers" one
+	// $routing['directory'] = '';
+
+	// The controller class file name.  Example:  mycontroller
+	// $routing['controller'] = '';
+
+	// The controller function you wish to be called.
+	// $routing['function']	= '';
+
+
+/*
+ * -------------------------------------------------------------------
+ *  CUSTOM CONFIG VALUES
+ * -------------------------------------------------------------------
+ *
+ * The $assign_to_config array below will be passed dynamically to the
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
+ * This can be handy as it permits you to share one application between
+ * multiple front controller files, with each file containing different
+ * config values.
+ *
+ * Un-comment the $assign_to_config array below to use this feature
+ */
+	// $assign_to_config['name_of_config_item'] = 'value of config item';
+
+
+
+// --------------------------------------------------------------------
+// END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
+// --------------------------------------------------------------------
+
+/*
+ * ---------------------------------------------------------------
+ *  Resolve the system path for increased reliability
+ * ---------------------------------------------------------------
+ */
+
+	// Set the current directory correctly for CLI requests
+	if (defined('STDIN'))
+	{
+		chdir(dirname(__FILE__));
+	}
+
+	if (($_temp = realpath($system_path)) !== FALSE)
+	{
+		$system_path = $_temp.DIRECTORY_SEPARATOR;
+	}
+	else
+	{
+		// Ensure there's a trailing slash
+		$system_path = strtr(
+			rtrim($system_path, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		).DIRECTORY_SEPARATOR;
+	}
+
+	// Is the system path correct?
+	if ( ! is_dir($system_path))
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME);
+		exit(3); // EXIT_CONFIG
+	}
+
+/*
+ * -------------------------------------------------------------------
+ *  Now that we know the path, set the main path constants
+ * -------------------------------------------------------------------
+ */
+	// The name of THIS file
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+
+	// Path to the system directory
+	define('BASEPATH', $system_path);
+
+	// Path to the front controller (this file) directory
+	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+
+	// Name of the "system" directory
+	define('SYSDIR', basename(BASEPATH));
+
+	// The path to the "application" directory
+	if (is_dir($application_folder))
+	{
+		if (($_temp = realpath($application_folder)) !== FALSE)
+		{
+			$application_folder = $_temp;
+		}
+		else
+		{
+			$application_folder = strtr(
+				rtrim($application_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+	{
+		$application_folder = BASEPATH.strtr(
+			trim($application_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
+
+	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
+
+	// The path to the "views" directory
+	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.'views';
+	}
+	elseif (is_dir($view_folder))
+	{
+		if (($_temp = realpath($view_folder)) !== FALSE)
+		{
+			$view_folder = $_temp;
+		}
+		else
+		{
+			$view_folder = strtr(
+				rtrim($view_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.strtr(
+			trim($view_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
+
+	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE BOOTSTRAP FILE
+ * --------------------------------------------------------------------
+ *
+ * And away we go...
+ */
+require_once BASEPATH.'core/CodeIgniter.php';
