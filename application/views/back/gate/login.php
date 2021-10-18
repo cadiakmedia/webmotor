@@ -104,7 +104,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 
                 <?= $this->session->flashdata('message'); ?>
 								<form class="form" action="<?php echo base_url('gate\login\lupa'); ?>"  method="post" id="kt_login_forgot_form">
-               
+								<input type="hidden" class="txt_csrfname" name="<?=$csrf_name;?>" value="<?=$csrf_hash;?>" />
                  
 									<!--begin::Title-->
 									<div class="text-center pb-8">

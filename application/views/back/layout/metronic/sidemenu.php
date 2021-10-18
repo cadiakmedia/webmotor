@@ -93,6 +93,14 @@
 													<span class="menu-text">Meta</span>
 												</a>
 											</li>
+                                            <li class="menu-item menu" aria-haspopup="true">
+                                            <a href="<?= site_url('panel/link'); ?>" class="menu-link">
+													<i class="menu-bullet menu-bullet-dot">
+														<span></span>
+													</i>
+													<span class="menu-text">Link</span>
+												</a>
+											</li>
 										</ul>
 									</div>
 								</li>

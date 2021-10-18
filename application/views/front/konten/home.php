@@ -3,6 +3,8 @@
 <?php
 $random = (array) $foto;
 $meta_array = (array) $meta[0];
+$website_array = (array) $website[0];
+
 
 ?>
 
@@ -14,8 +16,8 @@ $meta_array = (array) $meta[0];
     <meta name="description" content="<?= $meta_array['meta_deskripsi'];?>">
     <meta name="image" content="<?=base_url('galery/'.$meta_array['meta_foto']);?>">
 
-    <link rel="shortcut icon" href="assets/img/favicon.png">
-    <title>Elang Motor Indonesia - Kredit Syariah Tanpa Riba Sepeda Motor Honda dan Yamaha</title>
+    <link rel="shortcut icon" href="<?= base_url('galery/icon/'.$website_array['favicon']) ?>">
+    <title><?= $website_array['judul_website'] ?></title>
     <link rel="stylesheet" href="assets/css/plugins.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preload" href="assets/css/fonts/dm.css" as="style" onload="this.rel='stylesheet'">
@@ -46,11 +48,11 @@ $meta_array = (array) $meta[0];
                     </div>
                     <div class="d-flex flex-row align-items-center me-6 ms-auto">
                         <div class="icon text-white fs-22 mt-1 me-2"> <i class="uil uil-phone-volume"></i></div>
-                        <p class="mb-0">0852 1858 3131</p>
+                        <p class="mb-0"><?= $website_array['hp'] ?></p>
                     </div>
                     <div class="d-flex flex-row align-items-center">
                         <div class="icon text-white fs-22 mt-1 me-2"> <i class="uil uil-message"></i></div>
-                        <p class="mb-0"><a href="mailto:elangmotorindonesia@gmail.com" class="link-white hover">elangmotorindonesia@gmail.com</a></p>
+                        <p class="mb-0"><a href="mailto:<?= $website_array['email'] ?>" class="link-white hover"><?= $website_array['email'] ?></a></p>
                     </div>
                 </div>
                 <!-- /.container -->
@@ -214,9 +216,9 @@ $meta_array = (array) $meta[0];
                         <img class="mb-4" src="assets/img/logo.png" alt="Elang Motor Indonesia" />
                         <p class="mb-4">© <?= date('Y'); ?> Elang Motor Indonesia. <br class="d-none d-lg-block" />All rights reserved.</p>
                         <nav class="nav social">
-                            <a href="https://www.facebook.com/elangmotorindonesia" target="_blank"><i class="uil uil-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/elangmotor.indonesia/" target="_blank"><i class="uil uil-instagram"></i></a>
-                            <a href="#"><i class="uil uil-youtube"></i></a>
+                            <a href="<?= $website_array['link_fb'] ?>" target="_blank"><i class="uil uil-facebook-f"></i></a>
+                            <a href="<?= $website_array['link_ig'] ?>" target="_blank"><i class="uil uil-instagram"></i></a>
+                            <a href="<?= $website_array['link_yt'] ?>"><i class="uil uil-youtube"></i></a>
                         </nav>
                         <!-- /.social -->
                     </div>
@@ -236,9 +238,9 @@ $meta_array = (array) $meta[0];
                     <div class="widget">
                         <h4 class="widget-title mb-3">Link Terkait</h4>
                         <ul class="list-unstyled text-reset mb-0">
-                            <li><a href="https://kredit.elangmotor.com">Informasi Kredit</a></li>
-                            <li><a href="https://kerjasama.elangmotor.com">Informasi Kemitraan</a></li>
-                            <li><a href="https://kredit.elangmotor.com/cabang">Dafatar Cabang</a></li>
+                        <?php foreach ($link as $L) :?>
+                            <li><a href="<?= $L->link; ?>"><?= $L->judul; ?></a></li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                     <!-- /.widget -->
