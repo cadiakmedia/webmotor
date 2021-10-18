@@ -20,7 +20,7 @@
                             <label>Foto Meta<span class="text-danger mr-3">*</span>:</label>
                             <div id="foto2"></div>
                         
-                            <div class="overlay-wrapper">
+                            <div class="overlay-wrapper mb-10">
                             <img src="<?= base_url()?>galery/<?= $value->meta_foto?>" alt="" class="w-50 h-50 rounded "/>
                             </div>
                             <div class="custom-file">

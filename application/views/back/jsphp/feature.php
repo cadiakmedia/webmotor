@@ -339,7 +339,10 @@ $(document).on('click','#tampil', function(){
           'Batal',
           'Anda batal Mengaktifkan!',
           'error'
-        )
+        ).then(function() {  
+          $('#switch'+id).prop('checked', false);
+
+});
       }
     })
   }
@@ -395,8 +398,25 @@ $(document).on('click','#tampil', function(){
           'Batal',
           'proses batal!',
           'error'
-        )
+        ).then(function() {  
+          $('#switch'+id).prop('checked', true);
+
+});
+    
       }
     })
   }
+</script>
+<script>
+function switch1(id){
+    if(document.getElementById('switch'+id).checked){
+        var dist =id;
+      return aktif(dist);
+    }else{
+      var dist =id;
+      return non_aktif(dist);
+    }
+    return true;
+
+}
 </script>

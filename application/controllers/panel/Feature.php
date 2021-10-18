@@ -89,10 +89,26 @@ class Feature extends MY_Controller
             $image = base_url("galery/".$field->foto);
             
             if($field->status == 0){
-                $status="<button onClick='aktif(".$field->id.");' class='btn btn-primary'>Aktifkan</button>";
+                $status="<span class='label label-lg label-light-danger label-inline'>Non-Aktif</span>";
+                $switch = "  
+                <span class='switch switch-icon'>
+                  <label>
+                   <input type='checkbox' id='switch".$field->id."'  name='switch' value='' onclick='switch1(".$field->id.")'/>
+                   
+                   <span></span>
+                  </label>
+                 </span>";
             }else if($field->status == 1){
-                $status="<button onClick='non_aktif(".$field->id.");' class='btn btn-secondary'>Non-Aktifkan</button>";
+                $status="<span class='label label-lg label-light-primary label-inline'>Aktif</span>";
+                $switch  = "
+                <span class='switch switch-icon'>
+                  <label>
+                   <input type='checkbox' checked='checked' id='switch".$field->id."'  name='switch' value='' onclick='switch1(".$field->id.")';/>
+                   <span></span>
+                  </label>
+                 </span>";
             }
+  
             
             $row[] = $no;
             $row[] = "<button class=' btn thumbnail tampil_foto' id='tampil' data-target='#tampil_foto' data-toggle='modal' data-id=".$field->id."><img id='image' style='width: 60px;height: 90px;' src='$image'></button>";
@@ -100,7 +116,7 @@ class Feature extends MY_Controller
             $row[] = $field->judul;
             $row[] = $status;
             $aksi = '<span style="overflow: visible; position: relative; width: 125px;">
-            <div class="dropdown dropdown-inline">
+          
                 
             <a href="" id="edit"  data-target="#edit_foto" data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
                 <span class="svg-icon svg-icon-md">
@@ -122,9 +138,11 @@ class Feature extends MY_Controller
                     </g>	                                
                 </svg>	                            
             </span>							
-        </a>						
+        </a>
+        
+
         </span>';
-            $row[] = $aksi;
+            $row[] = $aksi.$switch;
  
             $data[] = $row;
         }
