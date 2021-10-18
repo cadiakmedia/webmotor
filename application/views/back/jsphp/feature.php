@@ -75,6 +75,7 @@ $(document).on('click','#tampil', function(){
       img.src = link;
       var src = document.getElementById("foto1");
       src.appendChild(img);
+    
       $('#modal-foto').modal('show');
 
 });
@@ -227,9 +228,6 @@ $(document).on('click','#tampil', function(){
                 src.appendChild(img);
                 
                 document.getElementById("judul_edit").value = data['data']['judul'];
-                
-                          
-
                   $('#edit_foto').modal('show');
                   }
   });

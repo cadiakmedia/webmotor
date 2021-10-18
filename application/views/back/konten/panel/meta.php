@@ -17,11 +17,11 @@
                         <input type="hidden" class="txt_csrfname" name="<?=$csrf_name;?>" value="<?=$csrf_hash;?>" />
                         <div class="form-group col-12">
                        
-                            <label>Foto Meta<span class="text-danger">*</span>:</label>
+                            <label>Foto Meta<span class="text-danger mr-3">*</span>:</label>
                             <div id="foto2"></div>
                         
                             <div class="overlay-wrapper">
-                            <img src="<?= base_url()?>galery/<?= $value->meta_foto?>" alt="" class="w-50 h-50 rounded"/>
+                            <img src="<?= base_url()?>galery/<?= $value->meta_foto?>" alt="" class="w-50 h-50 rounded "/>
                             </div>
                             <div class="custom-file">
                             <input type="file" class="custom-file-input" id="foto_edit" name="foto_edit"/>

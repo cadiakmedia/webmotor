@@ -2,12 +2,18 @@
 <html lang="en">
 <?php
 $random = (array) $foto;
+$meta_array = (array) $meta[0];
 
 ?>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="keywords" content="<?= $meta_array['meta_keyword'];?>">
+    <meta name="description" content="<?= $meta_array['meta_deskripsi'];?>">
+    <meta name="image" content="<?=base_url('galery/'.$meta_array['meta_foto']);?>">
+
     <link rel="shortcut icon" href="assets/img/favicon.png">
     <title>Elang Motor Indonesia - Kredit Syariah Tanpa Riba Sepeda Motor Honda dan Yamaha</title>
     <link rel="stylesheet" href="assets/css/plugins.css">

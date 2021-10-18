@@ -19,9 +19,11 @@ class Welcome extends MY_Controller {
         $tabel ='em_foto';
         $foto = $this->M_crud->get_data_not_del($tabel);
         $random = $foto[Rand(0, count($foto) - 1)];
-     
+        $tabel="em_meta";
+        $meta = $this->M_crud->get_data($tabel);
         $data = [
             'foto'=> $random,
+            'meta'=>$meta
         ];
 		$this->front($data,'front/konten/home.php');
 	}
