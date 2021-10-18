@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2021 at 04:58 AM
+-- Generation Time: Oct 18, 2021 at 09:23 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -89,6 +89,33 @@ INSERT INTO `em_foto` (`id`, `foto`, `judul`, `status`, `created_at`, `created_b
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `em_link`
+--
+
+CREATE TABLE `em_link` (
+  `id` int(11) NOT NULL,
+  `judul` varchar(100) NOT NULL,
+  `link` varchar(100) NOT NULL,
+  `is_del` enum('1','0') NOT NULL DEFAULT '0',
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `em_link`
+--
+
+INSERT INTO `em_link` (`id`, `judul`, `link`, `is_del`, `created_by`, `created_at`, `updated_at`, `updated_by`) VALUES
+(1, 'Informasi Kredit', 'https://kredit.elangmotor.com/', '0', 0, '2021-10-18 04:28:21', '2021-10-18 06:57:35', 67),
+(2, 'test', 'http://localhost/webmotor/panel/link', '1', 1, '2021-10-18 07:05:10', '2021-10-18 07:05:16', 67),
+(3, 'Informasi Kemitraan', 'https://kerjasama.elangmotor.com/', '0', 1, '2021-10-18 07:08:46', NULL, NULL),
+(4, 'Daftar Cabang', 'https://kredit.elangmotor.com/cabang', '0', 1, '2021-10-18 07:09:22', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `em_meta`
 --
 
@@ -130,7 +157,7 @@ CREATE TABLE `em_website` (
 --
 
 INSERT INTO `em_website` (`id`, `judul_website`, `favicon`, `link_pendek`, `link_panjang`, `hp`, `email`, `link_fb`, `link_ig`, `link_yt`) VALUES
-(1, 'elang motor indonesia kredit syariah tanpa riba', 'favicon.png', 'www.elang-motor.com', 'www.elang-motor.com', '0823 8617 8069', 'elangmotorindonesia@gmail.com', 'www.fb.elang-motor.com', 'www.ig.elang-motor.com', 'www.yt.elang-motor.com');
+(1, 'Elang Motor Indonesia - kredit syariah tanpa riba', 'favicon.png', 'www.elang-motor.com', 'www.elang-motor.com', '0823 8617 8069', 'elangmotorindonesia@gmail.com', 'https://www.facebook.com/elangmotorindonesia', 'https://www.instagram.com/elangmotor.indonesia/', 'www.yt.elang-motor.com');
 
 -- --------------------------------------------------------
 
@@ -849,7 +876,11 @@ INSERT INTO `user_log` (`id`, `time`, `username`, `ip`, `user_agent`, `status`) 
 (574, '2021-10-16 01:25:57', 'admin', '127.0.0.1', 'Firefox 89.0', '1'),
 (575, '2021-10-16 09:02:35', 'admin', '127.0.0.1', 'Firefox 89.0', '1'),
 (576, '2021-10-18 01:27:46', 'admin', '127.0.0.1', 'Firefox 89.0', '1'),
-(577, '2021-10-18 02:39:48', 'admin', '127.0.0.1', 'Firefox 89.0', '1');
+(577, '2021-10-18 02:39:48', 'admin', '127.0.0.1', 'Firefox 89.0', '1'),
+(578, '2021-10-18 03:00:57', 'admin', '127.0.0.1', 'Firefox 89.0', '1'),
+(579, '2021-10-18 03:03:37', 'baru123', '127.0.0.1', 'Firefox 89.0', '1'),
+(580, '2021-10-18 03:07:30', 'admin', '127.0.0.1', 'Firefox 89.0', '1'),
+(581, '2021-10-18 03:20:10', 'admin', '127.0.0.1', 'Firefox 89.0', '1');
 
 -- --------------------------------------------------------
 
@@ -92614,6 +92645,12 @@ ALTER TABLE `em_foto`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `em_link`
+--
+ALTER TABLE `em_link`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `em_meta`
 --
 ALTER TABLE `em_meta`
@@ -92744,6 +92781,12 @@ ALTER TABLE `em_foto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `em_link`
+--
+ALTER TABLE `em_link`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `em_meta`
 --
 ALTER TABLE `em_meta`
@@ -92783,7 +92826,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_log`
 --
 ALTER TABLE `user_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=578;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=582;
 
 --
 -- AUTO_INCREMENT for table `wa_acces`
