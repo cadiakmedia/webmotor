@@ -150,15 +150,15 @@
         <div class="card-body ">
    
         <form method="post" id="form2" > 
-        <div class="card-body ">
+  
         <div class="row">
-        <div class="form-group col-12">
+  
         <input type="hidden" class="txt_csrfname" name="<?=$csrf_name;?>" value="<?=$csrf_hash;?>" />
         <div class="form-group col-12">
 	
             <label>Data Foto<span class="text-danger">*</span>:</label>
             <div id="foto2"></div>
-            <div class="custom-file">
+            <div class="custom-file  mt-10">
             <input type="file" class="custom-file-input" id="foto_edit" name="foto_edit"/>
             <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
@@ -168,12 +168,11 @@
 				<input type="text" id="judul_edit" class="form-control" name="judul_edit" placeholder="Input Judul Foto" required="required" />
 				
 			</div>
-       
-        </div>
+   
 		
                 
         </div>
-        </div>
+      
 	
 			<!--end::Form-->
 		
