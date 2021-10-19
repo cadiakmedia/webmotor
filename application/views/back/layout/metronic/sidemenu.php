@@ -29,7 +29,7 @@
         <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
-                <li class="menu-item " aria-haspopup="true">
+                <li  <?php if($this->uri->uri_string()=="panel/dashboard"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?> aria-haspopup="true">
                     <a href="<?= site_url('panel/dashboard'); ?>" class="menu-link">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -45,7 +45,7 @@
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item " aria-haspopup="true">
+                <li <?php if($this->uri->uri_string()=="panel/feature"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?> aria-haspopup="true">
                     <a href="<?= site_url('panel/feature'); ?>" class="menu-link">
                     <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Shopping\Box2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -57,7 +57,7 @@
                         <span class="menu-text">Featured</span>
                     </a>
                 </li>
-                <li class="menu-item" aria-haspopup="true" >
+                <li <?php if($this->uri->uri_string()=="panel/website" || $this->uri->uri_string()=="panel/meta" || $this->uri->uri_string()=="panel/link" ){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?> aria-haspopup="true" >
 									<a href="javascript:;" class="menu-link menu-toggle">
                                     <span class="svg-icon menu-icon"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Code\Settings4.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -77,7 +77,7 @@
 													<span class="menu-text">Themes</span>
 												</span>
 											</li>
-											<li class="menu-item" aria-haspopup="true">
+											<li <?php if($this->uri->uri_string()=="panel/website"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?>  aria-haspopup="true">
                                             <a href="<?= site_url('panel/website'); ?>" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
@@ -85,7 +85,7 @@
 													<span class="menu-text">Website</span>
 												</a>
 											</li>
-											<li class="menu-item menu" aria-haspopup="true">
+											<li <?php if($this->uri->uri_string()=="panel/meta"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?>  aria-haspopup="true">
                                             <a href="<?= site_url('panel/meta'); ?>" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
@@ -93,7 +93,7 @@
 													<span class="menu-text">Meta</span>
 												</a>
 											</li>
-                                            <li class="menu-item menu" aria-haspopup="true">
+                                            <li <?php if($this->uri->uri_string()=="panel/link"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?>  aria-haspopup="true">
                                             <a href="<?= site_url('panel/link'); ?>" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">
 														<span></span>
