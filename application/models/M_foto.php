@@ -85,26 +85,7 @@ class M_foto extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    public function ganti_kategori($id,$fk_id_kategori){
-       
-
-        $this->db->where('fk_id_kategori',$id);
-		return $this->db->update('artikel',$fk_id_kategori);
-    }
-    public function hitung_kategori($data)
-    {
-        $this->db->where('fk_id_kategori=', $data);
-        $query = $this->db->get('artikel');
-        return $query->num_rows();    
-    }
-
-    public function nama_kategori($data)
-    {
-        $this->db->select('nama_kategori, id_kategori');
-        $this->db->where('id_kategori=', $data);
-        $query = $this->db->get('kategori');
-        return $query->row(); 
-    }
+ 
     public function data_foto($id)
     {
         $this->db->select('*');
