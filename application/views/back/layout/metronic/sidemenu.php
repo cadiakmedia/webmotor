@@ -85,6 +85,14 @@
 													<span class="menu-text">Website</span>
 												</a>
 											</li>
+                                            <li <?php if($this->uri->uri_string()=="panel/page"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?>  aria-haspopup="true">
+                                            <a href="<?= site_url('panel/page'); ?>" class="menu-link">
+													<i class="menu-bullet menu-bullet-dot">
+														<span></span>
+													</i>
+													<span class="menu-text">Page</span>
+												</a>
+											</li>
 											<li <?php if($this->uri->uri_string()=="panel/meta"){?> class="menu-item menu-item-submenu menu-item-open menu-item-here"<?php }else{ ?>class="menu-item "<?php }?>  aria-haspopup="true">
                                             <a href="<?= site_url('panel/meta'); ?>" class="menu-link">
 													<i class="menu-bullet menu-bullet-dot">

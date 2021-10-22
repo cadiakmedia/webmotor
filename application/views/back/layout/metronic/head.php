@@ -64,6 +64,9 @@
         #foto2 > img {
             max-width:685px;
         }
+        #foto3 > img {
+            max-width:685px;
+        }
     </style>
 </head>
 <!--end::Head-->

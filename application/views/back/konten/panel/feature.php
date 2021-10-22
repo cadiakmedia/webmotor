@@ -1,6 +1,6 @@
 <?= $this->session->flashdata('message'); ?>
 <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           
 					<div class="panel">
              
@@ -48,7 +48,7 @@
             </div>
 </div>
 
-
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-foto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
