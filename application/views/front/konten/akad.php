@@ -378,20 +378,16 @@ $akad_array = (array) $akad[0];
     </section>
     <!-- /section -->
     <section class="wrapper bg-light">
-    <div class="basic-slider owl-carousel dots-over" data-nav="true" data-margin="5">
-            <div class="item"><img src="<?= base_url()?>assets/photos/pp7.jpg" class="rounded" alt="" /></div>
-            <div class="item"><img src="<?= base_url()?>assets/photos/pp8.jpg" class="rounded" alt="" /></div>
-            <div class="item"><img src="<?= base_url()?>assets/photos/pp9.jpg" class="rounded" alt="" /></div>
-          </div>
+
       <div class="container pb-14 pb-md-16">
         <div class="row text-center mb-12 mb-md-15">
           <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-n18 mt-md-n22">
           <div class="basic-slider owl-carousel dots-over" data-nav="true" data-margin="5">
-            <div class="item"><img src="<?= base_url()?>assets/photos/pp7.jpg" class="rounded" alt="" /></div>
-            <div class="item"><img src="<?= base_url()?>assets/photos/pp8.jpg" class="rounded" alt="" /></div>
-            <div class="item"><img src="<?= base_url()?>assets/photos/pp9.jpg" class="rounded" alt="" /></div>
+            <?php foreach($foto_akad as $f){?>
+            <div class="item"><img src="<?= base_url('galery/').$f->foto?>" class="rounded" alt="" /></div>
+            <?php }?>
           </div>
-            <!-- <figure><img class="w-auto" src="<?= base_url('galery/').$page_array['featur_image']?>" srcset="./assets/img/concept/concept8@2x.png 2x" alt="" /></figure> -->
+         
           </div>
           <!-- /column -->
         </div>
@@ -862,8 +858,8 @@ $akad_array = (array) $akad[0];
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
-  <script src="<?= base_url()?>assets/dist/assets/js/plugins.js"></script>
-    <script src="<?= base_url()?>assets/dist/assets/js/theme.js"></script>
+  <script src="<?= base_url()?>assets/js/plugins.js"></script>
+    <script src="<?= base_url()?>assets/js/theme.js"></script>
 </body>
 
 </html>
