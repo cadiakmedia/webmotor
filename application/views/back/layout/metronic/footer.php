@@ -206,7 +206,28 @@
 <script src="<?= base_url('assets/dist/'); ?>assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 <script src="<?= base_url('assets/dist/'); ?>assets/js/pages/widgets.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/sweetalert/sweetalert2.min.js"></script>
-		<script type="text/javascript" src="<?php echo base_url()?>assets/sweetalert/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/sweetalert/sweetalert2.all.min.js"></script>
+<script>
+	function add() {
+		var new_chq_no = parseInt($('#total_chq').val()) + 1;
+		var jumlah = new_chq_no;
+
+		var new_input = "<input type='file' class='form-control mb-2' name='a" + new_chq_no + "' id='new_" + new_chq_no +
+			"'>";
+		$('#new_chq').append(new_input);
+		$('#total_chq').val(new_chq_no)
+	}
+
+	function remove() {
+		var last_chq_no = $('#total_chq').val();
+		if (last_chq_no > 1) {
+			$('#new_' + last_chq_no).remove();
+			$('#total_chq').val(last_chq_no - 1);
+		}
+	}
+
+</script>
+
 <?php
 if (isset($js_lib)) {
     foreach ($js_lib as $jb) {

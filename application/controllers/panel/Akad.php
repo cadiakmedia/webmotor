@@ -1,0 +1,570 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Akad extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        date_default_timezone_set('Asia/Jakarta');
+        $this->load->helper(array('form','url'));
+        $this->load->database();
+        $this->load->library('datatables');
+        $this->load->model('M_login');
+        $this->load->model('M_crud');
+        $this->load->model('M_akad');
+        $this->load->model('M_foto_akad');
+        $this->load->helper('form');
+        $this->load->library('session');
+        $this->load->helper("file");
+    }
+   
+
+    public function index()
+    {
+   
+        $username = $this->session->userdata('username');
+        $Auth = $this->M_login->login($username);
+        if(!$Auth){
+            redirect('gate/login');
+        }
+
+        $data = [
+            'aksi'              => '',
+            'sub_page_title'    => 'Dashboard',
+            'page_title'        => 'Panel',
+            'url'               => 'panel/akad/get_data_akad',
+            'url1'               => 'panel/akad/input_akad',
+            'url2'               => 'panel/akad/input_akad_edit',
+            'url3'               => 'panel/akad/get_data_foto_akad',
+            'data_user'         => $Auth,
+            'csrf_name' => $this->security->get_csrf_token_name(),
+            'csrf_hash' => $this->security->get_csrf_hash(), 
+
+            'breadcrumbs'       => [
+                [
+                    'href'  => '#',
+                    'label' => 'Panel',
+                ],
+                [
+                    'href'  => '#',
+                    'label' => 'Dashboard',
+                ]
+            ],
+            'reload'            => 'reload();',
+            'css_lib'           => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.css'
+            ],
+            'css_cdn'           => [
+                'https://fonts.googleapis.com/icon?family=Material+Icons',
+                
+                
+            ],
+            'js_lib'            => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js'
+                
+
+
+            ],
+            'js'                => ['back/jsphp/akad.php',],
+        ];
+        $this->load->helper('url');
+       
+        $this->admin($data, 'back/konten/panel/akad.php');
+    }
+    function get_data_akad()
+    {
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $list = $this->M_akad->get_datatables();
+        // var_dump($list);
+        // die;
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $field) {
+            $waktu=$field->created_at;
+            $time = strtotime($waktu);
+            $newformat = date('d-m-Y',$time);
+            $jam =date('H:i' ,$time);
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $field->judul;
+            $row[] = $field->slug;
+            $row[] = $field->created_by. " pada tanggal ". $newformat." Pukul ".$jam;
+            $aksi = '<span style="overflow: visible; position: relative; width: 125px;">
+          
+            <a href="" id="view"   data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="view details">
+            <span class="svg-icon svg-icon-md">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <rect x="0" y="0" width="24" height="24"/>
+                <path d="M3,12 C3,12 5.45454545,6 12,6 C16.9090909,6 21,12 21,12 C21,12 16.9090909,18 12,18 C5.45454545,18 3,12 3,12 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                <path d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z" fill="#000000" opacity="0.3"/>
+            </g>                                
+                </svg>	                            
+            </span>							
+        </a>      
+            <a href="" id="edit"   data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="Edit akad">
+                <span class="svg-icon svg-icon-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">	                                        
+                            <rect x="0" y="0" width="24" height="24"></rect>	                                        
+                            <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "></path>	                                        <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>	                                    
+                        </g>	                                
+                    </svg>	                            
+                </span>							
+            </a>							
+            <a onClick="hapus('.$field->id.');" class="btn btn-sm btn-clean btn-icon" title="Delete">	                            
+                <span class="svg-icon svg-icon-md">	                                
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">	                                    
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">	                                        
+                            <rect x="0" y="0" width="24" height="24"></rect>	                                        
+                        <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"></path>	                                        
+                        <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"></path>	                                    
+                    </g>	                                
+                </svg>	                            
+            </span>							
+        </a>
+        
+
+        </span>';
+            $row[] = $aksi;
+ 
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->M_akad->count_all(),
+            "recordsFiltered" => $this->M_akad->count_filtered(),
+            "data" => $data,
+            "" . $this->security->get_csrf_token_name() . "" => $this->security->get_csrf_hash()
+        );
+        //output dalam format JSON
+        $output[$csrf_name] = $csrf_hash; 
+        //output to json format
+        echo json_encode($output);
+    }
+    function get_data_foto_akad()
+    {
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+       
+        $id_akad = $this->uri->segment(4);
+        $list = $this->M_foto_akad->get_datatables($id_akad);
+        // var_dump($list);
+        // die;
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $field) {
+            $waktu=$field->created_at;
+            $time = strtotime($waktu);
+            $newformat = date('d-m-Y',$time);
+            $jam =date('H:i' ,$time);
+            $no++;
+            $image = base_url("galery/".$field->foto);
+            $row = array();
+            $row[] = $no;
+            $row[] = "<a onClick=image(".$field->id."); class=' btn thumbnail tampil_foto' id='tampil'  ><img id='image' style='width: 60px;height: 90px;' src='$image'></a>";
+            $aksi = '<span style="overflow: visible; position: relative; width: 125px;">
+          
+               
+            <a href="" id="edit_foto" data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="Edit akad">
+                <span class="svg-icon svg-icon-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">	                                        
+                            <rect x="0" y="0" width="24" height="24"></rect>	                                        
+                            <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "></path>	                                        <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>	                                    
+                        </g>	                                
+                    </svg>	                            
+                </span>							
+            </a>							
+            <a onClick="hapus_foto('.$field->id.');" class="btn btn-sm btn-clean btn-icon" title="Delete">	                            
+                <span class="svg-icon svg-icon-md">	                                
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">	                                    
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">	                                        
+                            <rect x="0" y="0" width="24" height="24"></rect>	                                        
+                        <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"></path>	                                        
+                        <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"></path>	                                    
+                    </g>	                                
+                </svg>	                            
+            </span>							
+        </a>
+        
+
+        </span>';
+            $row[] = $aksi;
+ 
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $_POST['draw'],
+             "data" => $data,
+            "" . $this->security->get_csrf_token_name() . "" => $this->security->get_csrf_hash()
+        );
+        //output dalam format JSON
+        $output[$csrf_name] = $csrf_hash; 
+        //output to json format
+        echo json_encode($output);
+    }
+    function input_akad(){
+
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $timestamp = date("Y-m-d H:i:s");
+        $id_user = $this->session->userdata('id_user');
+     
+      
+        
+        $data= array (
+            'judul'=> $this->input->post('judul'),
+            'slug'=> $this->input->post('slug'),
+            'konten'=> $this->input->post('konten'),
+            'created_by'=>$id_user
+        );
+        $tabel='em_akad';
+        $this->db->trans_begin();
+        $this->M_crud->create_data($tabel,$data);
+        if ($this->db->trans_status() === FALSE)
+        {
+                $this->db->trans_rollback();
+        }else{
+            $akad_id=$this->db->insert_id();
+            $jumlah = $this->input->post('jumlah');
+            $result = array();
+            for ($a=1; $a<=$jumlah; $a++){
+                $c=1;
+                $config['upload_path']          = './galery';
+                $config['allowed_types']        = 'gif|jpg|png|pdf';
+                $config['max_size']             = 3072; // 1M
+                $this->load->library('upload', $config);
+                if( $this->upload->do_upload('a'.$a)){
+
+               
+                    $data1 = array('upload_data' => $this->upload->data());
+                    $file_in= $data1['upload_data']['file_name'];
+
+                    $result [] = array (
+        
+                        'foto'=>$file_in,
+                        'id_akad' =>$akad_id,
+                        'created_by'=>$id_user
+                    );
+                    // $tabel= "em_akad_foto";
+                    // $update1 = $this->M_crud->create_data($tabel,$data1);
+                   
+                   
+                }else{
+                    // $this->db->trans_rollback();
+                    $array = array(
+                        'error' => '<div class="alert alert-success">Data gagal inputkan</div>',
+                        'token_emot'=>$this->security->get_csrf_hash(),
+                    );
+                        echo json_encode($array);
+                }
+               
+                $c++;
+            }  
+       
+            $this->db->insert_batch('em_akad_foto',$result);
+
+            if ($this->db->trans_status() === FALSE)
+            {
+                    $this->db->trans_rollback();
+            }
+            else
+            {
+                    $this->db->trans_commit();
+                    $array = array(
+                        'success' => '<div class="alert alert-success">Data Baru berhasil di inputkan</div>',
+                        'token_emot'=>$this->security->get_csrf_hash(),
+                    );
+                        echo json_encode($array);
+                        
+            }
+        }
+        
+
+    
+      
+            
+     
+     
+    }
+    public function hapus()
+    {   
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $timestamp = date("Y-m-d H:i:s");
+        $id_user = $this->session->userdata('id');
+        $id = $this->uri->segment(4);
+        $nama_id='id';
+        $tabel='em_akad'; 
+
+            $data= array (
+                'is_del' =>1,
+                'updated_at'=>$timestamp,
+                'updated_by'=>$id_user,
+            );
+
+      
+            
+            $this->M_crud->edit_data_by_id($tabel,$data,$nama_id,$id);
+            $tabel = 'em_akad_foto';
+            $nama_id='id_akad';
+            $foto = $this->M_crud->get_data_by_id_array($tabel,$nama_id, $id);
+           
+            foreach($foto as $f){
+                unlink(FCPATH.'/galery/'.$f->foto);
+            };
+            
+            $update1 = $this->M_crud->hard_del($tabel,$nama_id,$id);
+         
+            if($update1){
+            $array = array(
+                'success' => '<div class="alert alert-success">Data Toko Baru berhasil di inputkan</div>',
+                'token_emot'=>$this->security->get_csrf_hash(),
+            );
+                echo json_encode($array);
+             };
+     
+    }
+    public function hapus_foto()
+    {   
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $timestamp = date("Y-m-d H:i:s");
+        $id_user = $this->session->userdata('id');
+        $id = $this->uri->segment(4);
+
+            $tabel = 'em_akad_foto';
+            $nama_id='id';
+            $foto = $this->M_crud->get_data_by_id_array($tabel,$nama_id, $id);
+           
+            foreach($foto as $f){
+                unlink(FCPATH.'/galery/'.$f->foto);
+              
+            };
+           
+            $update1 = $this->M_crud->hard_del($tabel,$nama_id,$id);
+         
+            if($update1){
+            $array = array(
+                'success' => '<div class="alert alert-success">Data Toko Baru berhasil di inputkan</div>',
+                'token_emot'=>$this->security->get_csrf_hash(),
+            );
+                echo json_encode($array);
+             };
+     
+    }
+ 
+    public function get_id_akad()
+    {
+        // id yang telah diparsing pada ajax ajaxcrud.php data{id:id}
+        
+        $id = $this->input->post('id');
+		$tabel="em_akad";
+        $nama_id="id";
+
+        $data = $this->M_crud->get_data_by_id($tabel,$nama_id,$id);
+
+        $tabel="em_akad_foto";
+        $nama_id="id_akad";
+        
+        $data_foto = $this->M_crud->get_data_by_id_array($tabel,$nama_id,$id);
+  
+        $output = array(
+
+            "data" => $data,
+            "data_foto" =>$data_foto,
+            "" . $this->security->get_csrf_token_name() . "" => $this->security->get_csrf_hash()
+        );
+        //output to json format
+        echo json_encode($output);
+		
+    }
+    function input_akad_edit(){
+
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $timestamp = date("Y-m-d H:i:s");
+        $id_user = $this->session->userdata('id_user');
+        $nama_id = 'id';
+        $id = $this->input->post('id_akad');
+        $data= array (
+            'judul'=> $this->input->post('judul_edit'),
+            'slug'=> $this->input->post('slug_edit'),
+            'konten'=> $this->input->post('konten_edit'),
+            'updated_by'=>$id_user,
+            'updated_at'=>$timestamp
+
+        );
+        $tabel='em_akad';
+        $this->db->trans_begin();
+        $this->M_crud->edit_data_by_id($tabel,$data,$nama_id,$id);
+        if ($this->db->trans_status() === FALSE)
+        {
+                $this->db->trans_rollback();
+        }else{
+            
+            $jumlah = $this->input->post('jumlah_foto');
+          
+            for ($a=0; $a<=$jumlah; $a++){
+                $c=0;
+                $config['upload_path']          = './galery';
+                $config['allowed_types']        = 'gif|jpg|png|pdf';
+                $config['max_size']             = 3072; // 1M
+                $this->load->library('upload', $config);
+                if( $this->upload->do_upload('foto_edit'.$a)){
+
+              
+                    $data1 = array('upload_data' => $this->upload->data());
+                    $file_in= $data1['upload_data']['file_name'];
+
+                    $data1= array (
+        
+                        'foto'=>$file_in,
+                        'created_by'=>$id_user
+                    );
+                    $tabel= "em_akad_foto";
+                    $nama_id1="id_akad";
+                    $nama_id2="id";
+                    $id1 = $this->input->post('id_akad');
+                    $id2 = $this->input->post('id_foto'.$a);
+                   
+                    $update1 =  $this->M_crud->edit_data_by_id_2($tabel,$data1,$nama_id1,$nama_id2,$id1,$id2);
+                   
+                   
+                }
+                $c++;
+          
+            }  
+
+            if ($this->db->trans_status() === FALSE)
+            {
+                    $this->db->trans_rollback();
+            }
+            else
+            {
+                    $this->db->trans_commit();
+                    $array = array(
+                        'success' => '<div class="alert alert-success">Data Baru berhasil di inputkan</div>',
+                        'token_emot'=>$this->security->get_csrf_hash(),
+                    );
+                        echo json_encode($array);
+                        
+            }
+        }
+        
+    }
+    public function get_id_foto()
+    {
+        // id yang telah diparsing pada ajax ajaxcrud.php data{id:id}
+        
+        $id = $this->input->post('id');
+		$tabel="em_akad_foto";
+        $nama_id="id";
+
+        $data = $this->M_crud->get_data_by_id($tabel,$nama_id,$id);
+       
+        $output = array(
+
+            "data" => $data,
+            "" . $this->security->get_csrf_token_name() . "" => $this->security->get_csrf_hash()
+        );
+        //output to json format
+        echo json_encode($output);
+		
+    }
+    function input_foto(){
+
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $timestamp = date("Y-m-d H:i:s");
+        $id_user = $this->session->userdata('id_user');
+        $id = $this->uri->segment(4);
+        $nama_id='id';
+        $tabel='em_akad_foto'; 
+
+        $config['upload_path']          = './galery';
+        $config['allowed_types']        = 'gif|jpg|png|pdf';
+
+        // $config['overwrite']			= true;
+        $config['max_size']             = 3072; // 1MB
+        // $config['max_width']            = 1024;
+        // $config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);
+        if($this->upload->do_upload("foto_edit1")){
+            $data1 = array('upload_data' => $this->upload->data());
+    
+    
+        
+            $file_in= $data1['upload_data']['file_name'];
+ 
+            $data= array (
+
+                'foto'=>$file_in,
+                'updated_by'=>$id_user,
+                'updated_at'=>$timestamp
+            );
+       
+            $update1 = $this->M_crud->edit_data_by_id($tabel,$data,$nama_id,$id);
+            if($update1){
+            $array = array(
+                'success' => '<div class="alert alert-success">Data Baru berhasil di inputkan</div>',
+                'token_emot'=>$this->security->get_csrf_hash(),
+            );
+                echo json_encode($array);
+             };
+     
+        }
+    }
+    function tambah_foto(){
+
+        $csrf_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash();  
+        $timestamp = date("Y-m-d H:i:s");
+        $id_user = $this->session->userdata('id_user');
+        $nama_id='id';
+        $tabel='em_akad_foto'; 
+        $id = $this->uri->segment(4);
+        $config['upload_path']          = './galery';
+        $config['allowed_types']        = 'gif|jpg|png|pdf';
+
+        // $config['overwrite']			= true;
+        $config['max_size']             = 3072; // 1MB
+        // $config['max_width']            = 1024;
+        // $config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);
+        if($this->upload->do_upload("foto_baru")){
+            $data1 = array('upload_data' => $this->upload->data());
+    
+    
+        
+            $file_in= $data1['upload_data']['file_name'];
+ 
+            $data= array (
+
+                'foto'=>$file_in,
+                'id_akad'=>$id,
+                'created_by'=>$id_user
+            );
+       
+            $update1 = $this->M_crud->create_data($tabel,$data);
+            if($update1){
+            $array = array(
+                'success' => '<div class="alert alert-success">Data Baru berhasil di inputkan</div>',
+                'token_emot'=>$this->security->get_csrf_hash(),
+            );
+                echo json_encode($array);
+             };
+     
+        }
+    }
+
+      
+}

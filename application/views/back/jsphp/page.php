@@ -199,6 +199,7 @@ $(document).ready(function() {
                 document.getElementById("judul_edit").value = data['data']['judul'];
                 document.getElementById("slug_edit").value = data['data']['slug'];
                 document.getElementById("konten_edit").value = data['data']['konten'];
+                document.getElementById("link").value = "https://elangmotor.com/page/"+data['data']['slug'];
                   $('#edit_page').modal('show');
                   }
   });
@@ -261,7 +262,7 @@ $(document).ready(function() {
 </script>
 <script>
   $(document).on('click','#view', function(){
-  const myNode = document.getElementById("foto");
+  const myNode = document.getElementById("foto3");
   myNode.innerHTML = '';
  
   var id =  $(this).data('id');
@@ -294,7 +295,8 @@ $(document).ready(function() {
                 document.getElementById("judul_view").value = data['data']['judul'];
                 document.getElementById("slug_view").value = data['data']['slug'];
                 document.getElementById("konten_view").value = data['data']['konten'];
-                  $('#view_page').modal('show');
+                document.getElementById("link_edit").value = "https://elangmotor.com/page/"+data['data']['slug'];
+                $('#view_page').modal('show');
                   }
   });
 

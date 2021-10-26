@@ -6,7 +6,7 @@
              
                     <div class="card card-custom gutter-b">
                     <div class="card-header pt-3">
-						<h3 class="card-title">Data Foto</h3>
+						<h3 class="card-title">Data Page</h3>
 						<div class="card-toolbar">
 							<div class="example-tools justify-content-center">
                  <div class='btn-group' role='group'>
@@ -158,7 +158,10 @@
       <label>Konten<span class="text-danger">*</span>:</label>
       <input type="text" id="konten_edit" class="form-control" name="konten_edit" placeholder="Input Konten Page" required="required" />				
       </div>
-   
+      <div class="form-group col-12">
+      <label>Link<span class="text-danger">*</span>:</label>
+      <input type="text" id="link_edit" class="form-control" name="link" placeholder=""  readonly/>				
+      </div>
 		
                 
         </div>
@@ -222,6 +225,10 @@
       <div class="form-group col-12">
       <label>Konten<span class="text-danger">*</span>:</label>
       <input type="text" id="konten_view" class="form-control" name="konten_edit" placeholder="Input Konten Page" required="required" readonly/>				
+      </div>
+      <div class="form-group col-12">
+      <label>Link<span class="text-danger">*</span>:</label>
+      <input type="text" id="link" class="form-control" name="link" placeholder=""  readonly/>				
       </div>
    
 		

@@ -324,6 +324,7 @@ class Feature extends MY_Controller
         // $config['max_height']           = 768;
         
         $this->load->library('upload', $config);
+       
         if($this->upload->do_upload("foto_edit")){
             $data1 = array('upload_data' => $this->upload->data());
 
