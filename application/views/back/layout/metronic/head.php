@@ -57,7 +57,10 @@
         .thumbnail:hover {
             box-shadow: 0 0 11px rgba(33,33,33,.2); 
             }
-
+        #foto > img{
+            max-width:685px;
+            max-height:685px;
+        }
         #foto1 > img {
             max-width:685px;
         }

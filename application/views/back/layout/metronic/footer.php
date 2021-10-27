@@ -255,7 +255,9 @@ if (isset($addons)) {
     echo '';
 }
 ?>
-
+<script type='text/javascript'> 
+tinymce.init({ selector:'textarea', menubar:'', theme: 'modern'});
+</script>
 <!-- JQuery -->
 
 </body>

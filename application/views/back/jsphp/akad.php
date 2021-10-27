@@ -96,8 +96,7 @@ $(document).ready(function() {
                                   title: 'Data berhasil Ditambahkan',
                                   
                               }).then(function() {  
-                 location.reload(); 
-
+                                window.location.href="<?= base_url()?>panel/akad"
 });
                             }
                 }
@@ -165,58 +164,9 @@ $(document).ready(function() {
   }
 </script>
 <script>
-  $(document).on('click','#edit', function(){
-    $("#slider").html("");
-    $("#slider1").html("");
-    $("#input").html("");
-    $('#table-foto').DataTable().clear();
-    $('#table-foto').DataTable().destroy();
-  var id =  $(this).data('id');
-   
-
-  $.ajax({
-              type: "post",
-              dataType:"json",
-              url: "<?=base_url('panel/akad/get_id_akad')?>",
-              beforeSend :function () {
-                swal({
-                    title: 'Menunggu',
-                    html: 'Memproses data',
-                    onOpen: () => {
-                      swal.showLoading()
-                    }
-                  });      
-                },
-            data: {id:id,'token_emot': $('input[name=token_emot]').val(),},
-              success: function (data) {
-              swal.close();
-             
-              $('input[name=token_emot]').val(data.token_emot);
-            
-         
-
-              // for(var i=0 ; i< data.data_foto.length ; i++) {
-              //  if(i == 0){
-              //   $('#slider').append('<li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active "></li>')
-              //    $('#slider1').append('<div class="carousel-item active" style=" margin-left: auto; margin-right: auto;"><img class="d-block  "  src="<?= base_url("galery/")?>'+data.data_foto[i]['foto']+'" alt="First slide"></div>');
-                
-              //    }else{
-              //     $('#slider').append('<li data-target="#carouselExampleIndicators "  data-slide-to="'+ i +'" ></li>')
-              //     $('#slider1').append('<div class="carousel-item"><img class="d-block " src="<?= base_url("galery/")?>'+ data.data_foto[i]['foto'] +'" alt="First slide"></div>');
-                
-              //    }
-              //    $('#input').append('<label >Ganti Foto Akad'+(i + 1)+'<span class="text-danger">*</span>:</label><input type="file" class="form-control" id="foto_edit'+ i +'" name="foto_edit'+ i +'"/><input type="hidden" id="id_foto" class="form-control" name="id_foto'+ i +'" value="'+ data.data_foto[i]['id'] +'"/>');
-              //    document.getElementById("jumlah_foto").value =i;
-              //   }
-    
-                document.getElementById("id_akad").value = data['data']['id']; 
-                document.getElementById("judul_edit").value = data['data']['judul'];
-                document.getElementById("slug_edit").value = data['data']['slug'];
-                document.getElementById("konten_edit").value = data['data']['konten'];
-                  $('#edit_akad').modal('show');
-                  },
-  });
-  var table1;
+ $(document).ready(function() {
+  var url = window.location.pathname;
+  var id = url.substring(url.lastIndexOf('/') + 1);   
 
    var csrfName = $('.txt_csrfname').attr('name'); // Value specified in $config['csrf_token_name']
    var csrfHash = $('.txt_csrfname').val(); // CSRF hash
@@ -267,7 +217,8 @@ $(document).ready(function() {
  });
   $('#form2').on('submit', function(event){
     event.preventDefault();
-
+    var url = window.location.pathname;
+  var id = url.substring(url.lastIndexOf('/') + 1);  
 	        $.ajax({
 	            url:"<?= site_url('' . $url2 . ''); ?>/"+ id,
 	            type:'POST',
@@ -354,54 +305,7 @@ $(document).ready(function() {
         });
       };
 </script>
-<script>
-  $(document).on('click','#view', function(){
-    $("#slidera").html("");
-    $("#slidera1").html("");
 
-  var id =  $(this).data('id');
-  $.ajax({
-              type: "post",
-              dataType:"json",
-              url: "<?=base_url('panel/akad/get_id_akad')?>",
-              beforeSend :function () {
-                swal({
-                    title: 'Menunggu',
-                    html: 'Memproses data',
-                    onOpen: () => {
-                      swal.showLoading()
-                    }
-                  });      
-                },
-            data: {id:id,'token_emot': $('input[name=token_emot]').val(),},
-              success: function (data) {
-              swal.close();
-             
-              $('input[name=token_emot]').val(data.token_emot);
-            
-         
-
-              for(var i=0 ; i< data.data_foto.length ; i++) {
-               if(i == 0){
-                $('#slidera').append('<li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active "></li>')
-                 $('#slidera1').append('<div class="carousel-item active" style=" margin-left: auto; margin-right: auto;"><img class="d-block  "  src="<?= base_url("galery/")?>'+data.data_foto[i]['foto']+'" alt="First slide"></div>');
-                
-                 }else{
-                  $('#slidera').append('<li data-target="#carouselExampleIndicators "  data-slide-to="'+ i +'" ></li>')
-                  $('#slidera1').append('<div class="carousel-item"><img class="d-block " src="<?= base_url("galery/")?>'+ data.data_foto[i]['foto'] +'" alt="First slide"></div>');
-                
-                 }
-                
-                }
- 
-                document.getElementById("judul_view").value = data['data']['judul'];
-                document.getElementById("slug_view").value = data['data']['slug'];
-                document.getElementById("konten_view").value = data['data']['konten'];
-                  $('#view_akad').modal('show');
-                  },
-  });
-});  
-</script>
 <script type="text/javascript">
 var csrfName = $('.txt_csrfname').attr('name'); // Value specified in $config['csrf_token_name']
   var csrfHash = $('.txt_csrfname').val(); // CSRF hash
