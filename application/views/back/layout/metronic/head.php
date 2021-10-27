@@ -67,6 +67,13 @@
         #foto3 > img {
             max-width:685px;
         }
+        #foto_foto > img {
+            max-width:685px;
+        }
+        #slidera1{
+            max-width:685px;
+            max-height:685px;
+        }
     </style>
 </head>
 <!--end::Head-->
