@@ -70,6 +70,113 @@ class Page extends MY_Controller
        
         $this->admin($data, 'back/konten/panel/page.php');
     }
+    public function tambah()
+    {
+   
+        $username = $this->session->userdata('username');
+        $Auth = $this->M_login->login($username);
+        if(!$Auth){
+            redirect('gate/login');
+        }
+
+        $data = [
+            'aksi'              => '',
+            'sub_page_title'    => 'Dashboard',
+            'page_title'        => 'Page',
+            'url'               => 'panel/page/get_data_page',
+            'url1'               => 'panel/page/input_page',
+            'url2'               => 'panel/page/input_page_edit',
+            'data_user'         => $Auth,
+            'csrf_name' => $this->security->get_csrf_token_name(),
+            'csrf_hash' => $this->security->get_csrf_hash(), 
+
+            'breadcrumbs'       => [
+                [
+                    'href'  => '#',
+                    'label' => 'Panel',
+                ],
+                [
+                    'href'  => '#',
+                    'label' => 'Dashboard',
+                ]
+            ],
+            'reload'            => 'reload();',
+            'css_lib'           => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.css'
+            ],
+            'css_cdn'           => [
+                'https://fonts.googleapis.com/icon?family=Material+Icons',
+                
+                
+            ],
+            'js_lib'            => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js'
+                
+
+
+            ],
+            'js'                => ['back/jsphp/page.php',],
+        ];
+        $this->load->helper('url');
+       
+        $this->admin($data, 'back/konten/panel/tambah_page.php');
+    }
+    public function edit()
+    {
+   
+        $username = $this->session->userdata('username');
+        $Auth = $this->M_login->login($username);
+        if(!$Auth){
+            redirect('gate/login');
+        }
+        $id = $this->uri->segment(4);
+        $tabel="em_page";
+        $nama_id="id";
+
+        $data_page = $this->M_crud->get_data_by_id($tabel,$nama_id,$id);
+        $data = [
+            'aksi'              => '',
+            'sub_page_title'    => 'Dashboard',
+            'page_title'        => 'Page',
+            'url'               => 'panel/page/get_data_page',
+            'url1'               => 'panel/page/input_page',
+            'url2'               => 'panel/page/input_page_edit',
+            'data_user'         => $Auth,
+            'data_page'         => $data_page,
+            'csrf_name' => $this->security->get_csrf_token_name(),
+            'csrf_hash' => $this->security->get_csrf_hash(), 
+
+            'breadcrumbs'       => [
+                [
+                    'href'  => '#',
+                    'label' => 'Panel',
+                ],
+                [
+                    'href'  => '#',
+                    'label' => 'Dashboard',
+                ]
+            ],
+            'reload'            => 'reload();',
+            'css_lib'           => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.css'
+            ],
+            'css_cdn'           => [
+                'https://fonts.googleapis.com/icon?family=Material+Icons',
+                
+                
+            ],
+            'js_lib'            => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js'
+                
+
+
+            ],
+            'js'                => ['back/jsphp/page.php',],
+        ];
+        $this->load->helper('url');
+       
+        $this->admin($data, 'back/konten/panel/edit_page.php');
+    }
     function get_data_page()
     {
         $csrf_name = $this->security->get_csrf_token_name();
@@ -92,7 +199,7 @@ class Page extends MY_Controller
             $row[] = $field->created_by. " pada tanggal ". $newformat." Pukul ".$jam;
             $aksi = '<span style="overflow: visible; position: relative; width: 125px;">
           
-            <a href="" id="view"   data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="view details">
+            <a href="'.base_url() .'page/'.$field->slug.'" id="view"  class="btn btn-sm btn-clean btn-icon mr-2" title="view details">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -103,7 +210,7 @@ class Page extends MY_Controller
                 </svg>	                            
             </span>							
         </a>      
-            <a href="" id="edit"  data-target="#edit_page" data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+            <a href="'. base_url() .'panel/page/edit/'.$field->id.' " id="edit"   class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
                 <span class="svg-icon svg-icon-md">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">	                                        
@@ -144,6 +251,7 @@ class Page extends MY_Controller
         //output to json format
         echo json_encode($output);
     }
+
     function input_page(){
 
         $csrf_name = $this->security->get_csrf_token_name();
@@ -168,12 +276,13 @@ class Page extends MY_Controller
     
         
             $file_in= $data1['upload_data']['file_name'];
- 
+            $judul = $this->input->post('judul');
+            $slug =url_title($judul, 'dash', true);
             $data= array (
 
                 'featur_image'=>$file_in,
-                'judul'=> $this->input->post('judul'),
-                'slug'=> $this->input->post('slug'),
+                'judul'=> $judul,
+                'slug'=>  $slug,
                 'konten'=> $this->input->post('konten'),
                 'created_by'=>$id_user
             );
@@ -249,7 +358,7 @@ class Page extends MY_Controller
         $csrf_name = $this->security->get_csrf_token_name();
         $csrf_hash = $this->security->get_csrf_hash();  
         $timestamp = date("Y-m-d H:i:s");
-        $id = $this->uri->segment(4);
+     
         $id_user = $this->session->userdata('id');
         $nama_id='id';
         $tabel='em_page'; 
@@ -261,9 +370,11 @@ class Page extends MY_Controller
         $config['max_size']             = 3072; // 1MB
         // $config['max_width']            = 1024;
         // $config['max_height']           = 768;
-        
+        $id = $this->input->post('id');
+        $judul = $this->input->post('judul');
+        $slug =url_title($judul, 'dash', true);
         $this->load->library('upload', $config);
-        if($this->upload->do_upload("foto_edit")){
+        if($this->upload->do_upload("foto")){
             $data1 = array('upload_data' => $this->upload->data());
 
             $file_in= $data1['upload_data']['file_name'];
@@ -271,9 +382,9 @@ class Page extends MY_Controller
                 $data= array (
 
                     'featur_image'=>$file_in,
-                    'judul'=> $this->input->post('judul_edit'),
-                    'slug'=> $this->input->post('slug_edit'),
-                    'konten'=> $this->input->post('konten_edit'),
+                    'judul'=> $judul,
+                    'slug'=> $slug,
+                    'konten'=> $this->input->post('konten'),
                     'updated_by'=>$id_user,
                     'updated_at'=>$timestamp
                 );
@@ -309,9 +420,9 @@ class Page extends MY_Controller
           
                 $data= array (
 
-                    'judul'=> $this->input->post('judul_edit'),
-                    'slug'=> $this->input->post('slug_edit'),
-                    'konten'=> $this->input->post('konten_edit'),
+                    'judul'=> $judul,
+                    'slug'=> $slug,
+                    'konten'=> $this->input->post('konten'),
                     'updated_by'=>$id_user,
                     'updated_at'=>$timestamp
                 );

@@ -96,7 +96,7 @@ $(document).ready(function() {
                                   title: 'Data berhasil Ditambahkan',
                                   
                               }).then(function() {  
-                 location.reload(); 
+                window.location.href="<?= base_url()?>panel/page"
 
 });
                             }
@@ -165,49 +165,12 @@ $(document).ready(function() {
   }
 </script>
 <script>
-  $(document).on('click','#edit', function(){
-  const myNode = document.getElementById("foto");
-  myNode.innerHTML = '';
- 
-  var id =  $(this).data('id');
-  $.ajax({
-              type: "post",
-              dataType:"json",
-              url: "<?=base_url('panel/page/get_id_page')?>",
-              beforeSend :function () {
-                swal({
-                    title: 'Menunggu',
-                    html: 'Memproses data',
-                    onOpen: () => {
-                      swal.showLoading()
-                    }
-                  });      
-                },
-            data: {id:id,'token_emot': $('input[name=token_emot]').val(),},
-              success: function (data) {
-              swal.close();
-              const myNode = document.getElementById("foto2");
-              myNode.innerHTML = '';
-              $('input[name=token_emot]').val(data.token_emot);
-             
-                var img = document.createElement("img");
-   
-                img.src = "<?php echo base_url('/galery/')?>"+ data['data']['featur_image'];
-                var src = document.getElementById("foto2");
-                src.appendChild(img);
-                
-                document.getElementById("judul_edit").value = data['data']['judul'];
-                document.getElementById("slug_edit").value = data['data']['slug'];
-                document.getElementById("konten_edit").value = data['data']['konten'];
-                document.getElementById("link").value = "https://elangmotor.com/page/"+data['data']['slug'];
-                  $('#edit_page').modal('show');
-                  }
-  });
+
   $('#form2').on('submit', function(event){
     event.preventDefault();
 
 	        $.ajax({
-	            url:"<?= site_url('' . $url2 . ''); ?>/"+ id,
+	            url:"<?= site_url('' . $url2 . ''); ?>",
 	            type:'POST',
 	            dataType: "json",
               contentType: false,
@@ -255,56 +218,9 @@ $(document).ready(function() {
 
 
 	    }); 
- 
-  });
- 
-    
-</script>
-<script>
-  $(document).on('click','#view', function(){
-  const myNode = document.getElementById("foto3");
-  myNode.innerHTML = '';
- 
-  var id =  $(this).data('id');
-  $.ajax({
-              type: "post",
-              dataType:"json",
-              url: "<?=base_url('panel/page/get_id_page')?>",
-              beforeSend :function () {
-                swal({
-                    title: 'Menunggu',
-                    html: 'Memproses data',
-                    onOpen: () => {
-                      swal.showLoading()
-                    }
-                  });      
-                },
-            data: {id:id,'token_emot': $('input[name=token_emot]').val(),},
-              success: function (data) {
-              swal.close();
-              const myNode = document.getElementById("foto3");
-              myNode.innerHTML = '';
-              $('input[name=token_emot]').val(data.token_emot);
-             
-                var img = document.createElement("img");
-   
-                img.src = "<?php echo base_url('/galery/')?>"+ data['data']['featur_image'];
-                var src = document.getElementById("foto3");
-                src.appendChild(img);
-                
-                document.getElementById("judul_view").value = data['data']['judul'];
-                document.getElementById("slug_view").value = data['data']['slug'];
-                document.getElementById("konten_view").value = data['data']['konten'];
-                document.getElementById("link_edit").value = "https://elangmotor.com/page/"+data['data']['slug'];
-                $('#view_page').modal('show');
-                  }
-  });
 
- 
-  });
- 
-    
 </script>
+
 
 
 

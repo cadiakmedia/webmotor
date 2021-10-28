@@ -381,7 +381,7 @@ $page_array = (array) $page[0];
       <div class="container pb-14 pb-md-16">
         <div class="row text-center mb-12 mb-md-15">
           <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-n18 mt-md-n22">
-            <figure><img class="w-auto" src="<?= base_url('galery/').$page_array['featur_image']?>" srcset="./assets/img/concept/concept8@2x.png 2x" alt="" /></figure>
+            <figure><img class="w-auto" src="<?= base_url('galery/').$page_array['featur_image']?>" srcset="<?= base_url('galery/').$page_array['featur_image']?> 2x" alt="" /></figure>
           </div>
           <!-- /column -->
         </div>

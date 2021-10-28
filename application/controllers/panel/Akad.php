@@ -72,6 +72,115 @@ class Akad extends MY_Controller
        
         $this->admin($data, 'back/konten/panel/akad.php');
     }
+    public function tambah()
+    {
+   
+        $username = $this->session->userdata('username');
+        $Auth = $this->M_login->login($username);
+        if(!$Auth){
+            redirect('gate/login');
+        }
+
+        $data = [
+            'aksi'              => '',
+            'sub_page_title'    => 'Dashboard',
+            'page_title'        => 'Panel',
+            'url'               => 'panel/akad/get_data_akad',
+            'url1'               => 'panel/akad/input_akad',
+            'url2'               => 'panel/akad/input_akad_edit',
+            'url3'               => 'panel/akad/get_data_foto_akad',
+            'data_user'         => $Auth,
+            'csrf_name' => $this->security->get_csrf_token_name(),
+            'csrf_hash' => $this->security->get_csrf_hash(), 
+
+            'breadcrumbs'       => [
+                [
+                    'href'  => '#',
+                    'label' => 'Panel',
+                ],
+                [
+                    'href'  => '#',
+                    'label' => 'Dashboard',
+                ]
+            ],
+            'reload'            => 'reload();',
+            'css_lib'           => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.css'
+            ],
+            'css_cdn'           => [
+                'https://fonts.googleapis.com/icon?family=Material+Icons',
+                
+                
+            ],
+            'js_lib'            => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js'
+                
+
+
+            ],
+            'js'                => ['back/jsphp/akad.php',],
+        ];
+        $this->load->helper('url');
+       
+        $this->admin($data, 'back/konten/panel/tambah_akad.php');
+    }
+    public function edit()
+    {
+   
+        $username = $this->session->userdata('username');
+        $Auth = $this->M_login->login($username);
+        if(!$Auth){
+            redirect('gate/login');
+        }
+        $id = $this->uri->segment(4);
+        $tabel="em_akad";
+        $nama_id="id";
+
+        $data_akad = $this->M_crud->get_data_by_id($tabel,$nama_id,$id);
+        $data = [
+            'aksi'              => '',
+            'sub_page_title'    => 'Dashboard',
+            'page_title'        => 'Panel',
+            'url'               => 'panel/akad/get_data_akad',
+            'url1'               => 'panel/akad/input_akad',
+            'url2'               => 'panel/akad/input_akad_edit',
+            'url3'               => 'panel/akad/get_data_foto_akad',
+            'data_akad'         =>$data_akad,
+            'data_user'         => $Auth,
+            'csrf_name' => $this->security->get_csrf_token_name(),
+            'csrf_hash' => $this->security->get_csrf_hash(), 
+
+            'breadcrumbs'       => [
+                [
+                    'href'  => '#',
+                    'label' => 'Panel',
+                ],
+                [
+                    'href'  => '#',
+                    'label' => 'Dashboard',
+                ]
+            ],
+            'reload'            => 'reload();',
+            'css_lib'           => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.css'
+            ],
+            'css_cdn'           => [
+                'https://fonts.googleapis.com/icon?family=Material+Icons',
+                
+                
+            ],
+            'js_lib'            => [
+                'assets/dist/assets/plugins/custom/datatables/datatables.bundle.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js','assets/dist/assets/js/pages/crud/datatables/basic/basic.js'
+                
+
+
+            ],
+            'js'                => ['back/jsphp/akad.php',],
+        ];
+        $this->load->helper('url');
+       
+        $this->admin($data, 'back/konten/panel/edit_akad.php');
+    }
     function get_data_akad()
     {
         $csrf_name = $this->security->get_csrf_token_name();
@@ -94,7 +203,7 @@ class Akad extends MY_Controller
             $row[] = $field->created_by. " pada tanggal ". $newformat." Pukul ".$jam;
             $aksi = '<span style="overflow: visible; position: relative; width: 125px;">
           
-            <a href="" id="view"   data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="view details">
+            <a href="'.base_url() .'akad/'.$field->slug.'" id="view" class="btn btn-sm btn-clean btn-icon mr-2" title="view details">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -105,7 +214,7 @@ class Akad extends MY_Controller
                 </svg>	                            
             </span>							
         </a>      
-            <a href="" id="edit"   data-toggle="modal" data-id='.$field->id.' class="btn btn-sm btn-clean btn-icon mr-2" title="Edit akad">
+            <a href="'. base_url() .'panel/akad/edit/'.$field->id.'" id="edit"   class="btn btn-sm btn-clean btn-icon mr-2" title="Edit akad">
                 <span class="svg-icon svg-icon-md">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">	                                        
@@ -215,15 +324,16 @@ class Akad extends MY_Controller
         $csrf_hash = $this->security->get_csrf_hash();  
         $timestamp = date("Y-m-d H:i:s");
         $id_user = $this->session->userdata('id_user');
-     
-      
-        
+        $judul = $this->input->post('judul');
+        $slug =url_title($judul, 'dash', true);
+
         $data= array (
-            'judul'=> $this->input->post('judul'),
-            'slug'=> $this->input->post('slug'),
+            'judul'=> $judul,
+            'slug'=> $slug,
             'konten'=> $this->input->post('konten'),
             'created_by'=>$id_user
         );
+
         $tabel='em_akad';
         $this->db->trans_begin();
         $this->M_crud->create_data($tabel,$data);
@@ -393,9 +503,11 @@ class Akad extends MY_Controller
         $id_user = $this->session->userdata('id_user');
         $nama_id = 'id';
         $id = $this->input->post('id_akad');
+        $judul = $this->input->post('judul_edit');
+        $slug =url_title($judul, 'dash', true);
         $data= array (
-            'judul'=> $this->input->post('judul_edit'),
-            'slug'=> $this->input->post('slug_edit'),
+            'judul'=> $judul,
+            'slug'=> $slug,
             'konten'=> $this->input->post('konten_edit'),
             'updated_by'=>$id_user,
             'updated_at'=>$timestamp
