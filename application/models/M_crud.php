@@ -17,6 +17,14 @@ class M_crud extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_data_user($tabel)
+    {
+        
+        $this->db->select('id_user,nama_user');
+        $this->db->from($tabel);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function get_data_not_del_status($tabel)
     {
         

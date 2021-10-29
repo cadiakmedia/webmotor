@@ -22,6 +22,8 @@ class Akad extends MY_Controller {
         $random = $foto[Rand(0, count($foto) - 1)];
         $tabel="em_meta";
         $meta = $this->M_crud->get_data($tabel);
+        $tabel="user";
+        $user = $this->M_crud->get_data_user($tabel);
         $tabel="em_website";
         $website = $this->M_crud->get_data($tabel);
         $tabel="em_link";
@@ -40,6 +42,7 @@ class Akad extends MY_Controller {
             $data = [
                 'foto'=> $random,
                 'meta'=>$meta,
+                'user'=>$user,
                 'website'=>$website,
                 'link'=>$link,
                 'akad'=>$akad,
@@ -62,6 +65,7 @@ class Akad extends MY_Controller {
         $data = [
             'foto'=> $random,
             'meta'=>$meta,
+            'user'=>$user,
             'website'=>$website,
             'link'=>$link,
             'akad'=>$akad,

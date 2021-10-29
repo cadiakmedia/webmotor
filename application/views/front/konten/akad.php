@@ -6,7 +6,6 @@ $meta_array = (array) $meta[0];
 $website_array = (array) $website[0];
 $akad_array = (array) $akad[0];
 
-
 ?>
 
 <head>
@@ -446,10 +445,16 @@ $akad_array = (array) $akad[0];
                   <!--/.card-body -->
                   <div class="card-footer">
                     <ul class="post-meta d-flex mb-0">
-                      <li class="post-date"><i class="uil uil-calendar-alt"></i><span>25 Jun 2021</span></li>
-                      <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By Sandbox</span></a></li>
-                      <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>5<span> Comments</span></a></li>
-                      <li class="post-likes ms-auto"><a href="#"><i class="uil uil-heart-alt"></i>4</a></li>
+                      <li class="post-date"><i class="uil uil-calendar-alt"></i><span>
+                        <?php $time = strtotime($akad_array['created_at']);
+                              echo $newformat = date('d-m-Y',$time);?>
+                              </span></li>
+                      <?php foreach($user as $u){
+                       if($akad_array['created_by'] == $u->id_user ) {?>
+                      <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By <?=$u->nama_user?></span></a></li>
+                      <?php } } ?>
+                      
+                      
                     </ul>
                     <!-- /.post-meta -->
                   </div>

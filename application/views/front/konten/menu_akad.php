@@ -457,11 +457,18 @@ $website_array = (array) $website[0];
                     </div>
                     <!--/.card-body -->
                     <div class="card-footer">
-                      <ul class="post-meta d-flex mb-0">
-                        <li class="post-date"><i class="uil uil-calendar-alt"></i><span>14 Apr 2021</span></li>
-                        <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li>
-                        <li class="post-likes ms-auto"><a href="#"><i class="uil uil-heart-alt"></i>5</a></li>
-                      </ul>
+                    <ul class="post-meta d-flex mb-0">
+                      <li class="post-date"><i class="uil uil-calendar-alt"></i><span>
+                        <?php $time = strtotime($a->created_at);
+                              echo $newformat = date('d-m-Y',$time);?>
+                              </span></li>
+                      <?php foreach($user as $u){
+                       if($a->created_by == $u->id_user ) {?>
+                      <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By <?=$u->nama_user?></span></a></li>
+                      <?php } } ?>
+                      
+                      
+                    </ul>
                       <!-- /.post-meta -->
                     </div>
                     <!-- /.card-footer -->
