@@ -28,6 +28,28 @@ class Akad extends MY_Controller {
         $link = $this->M_crud->get_data_not_del($tabel);
         $tabel ='em_akad';
         $nama_slug="slug";
+        if($slug == ""){
+            
+            $akad= $this->M_crud->get_data($tabel);
+            
+            $tabel='em_akad_foto';
+            $foto_akad = $this->M_crud->get_data($tabel);
+               
+          
+          
+            $data = [
+                'foto'=> $random,
+                'meta'=>$meta,
+                'website'=>$website,
+                'link'=>$link,
+                'akad'=>$akad,
+                'foto_akad'=>$foto_akad,
+              
+                
+            ];
+            $this->front($data,'front/konten/menu_akad.php');
+
+        }else{
         $akad= $this->M_crud->get_data_by_slug($tabel,$nama_slug, $slug);
         foreach ($akad as $a){
             $id_akad = $a->id;
@@ -47,6 +69,7 @@ class Akad extends MY_Controller {
             
         ];
 		$this->front($data,'front/konten/akad.php');
+        }
 	}
 }
 

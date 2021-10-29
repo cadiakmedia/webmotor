@@ -507,7 +507,7 @@ class Akad extends MY_Controller
         $slug =url_title($judul, 'dash', true);
         $data= array (
             'judul'=> $judul,
-            'slug'=> $slug,
+      
             'konten'=> $this->input->post('konten_edit'),
             'updated_by'=>$id_user,
             'updated_at'=>$timestamp

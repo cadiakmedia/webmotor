@@ -383,7 +383,7 @@ class Page extends MY_Controller
 
                     'featur_image'=>$file_in,
                     'judul'=> $judul,
-                    'slug'=> $slug,
+                  
                     'konten'=> $this->input->post('konten'),
                     'updated_by'=>$id_user,
                     'updated_at'=>$timestamp
@@ -421,7 +421,7 @@ class Page extends MY_Controller
                 $data= array (
 
                     'judul'=> $judul,
-                    'slug'=> $slug,
+                   
                     'konten'=> $this->input->post('konten'),
                     'updated_by'=>$id_user,
                     'updated_at'=>$timestamp

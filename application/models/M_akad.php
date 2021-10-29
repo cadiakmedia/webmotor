@@ -94,151 +94,22 @@ class M_akad extends CI_Model {
         $query = $this->db->get();
         return $query->row_array();
     }
+    public function data_akad_and_foto()
+    {
+        $select = array(
+            'em_akad.*',
+      
+            'em_foto_akad.foto'
+        
+          
+        );
+        $this->db->select('*');
+        $this->db->from('em_akad');
+        $this->db->join('em_akad_foto', 'em_aakad_foto.id_akad = em_akad.id','left');
+        $query = $this->db->get();
+        return $query->result();
+    }
     
-    
-    // public function data_artikel()
-    // {
-    //     $del=[
-    //         'a.is_del' => '0',
-   
-            
-    //     ];
-    //     $select = array(
-    //         'a.*',
-      
-    //         'b.nama_kategori as nama_kategori',
-    //         'b.id_kategori',
-    //         'c.nama_user as nama_pengarang'
-          
-    //     );
 
-    //     $this->db->select($select);
-    //     $this->db->from('artikel a');
-    //     $this->db->where($del);
-    //     $this->db->join('kategori b', 'a.fk_id_kategori = b.id_kategori', 'left');
-    //     $this->db->join('user c', 'a.created_by = c.id_user', 'left');
-    //     $this->db->order_by('id_artikel', 'desc');
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }  
-    // public function data_artikel_beranda()
-    // {
-    //     $del=[
-    //         'a.is_del' => '0',
-   
-            
-    //     ];
-    //     $select = array(
-    //         'a.*',
-      
-    //         'b.nama_kategori as nama_kategori',
-    //         'b.id_kategori',
-    //         'c.nama_user as nama_pengarang'
-          
-    //     );
-
-    //     $this->db->select($select);
-    //     $this->db->from('artikel a');
-    //     $this->db->where($del);
-    //     $this->db->join('kategori b', 'a.fk_id_kategori = b.id_kategori', 'left');
-    //     $this->db->join('user c', 'a.created_by = c.id_user', 'left');
-    //     $this->db->order_by('id_artikel', 'desc');
-    //     $this->db->limit('6');
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }    
-    // public function data_artikel_by_id($id)
-    // {
-    //     $del=[
-    //         'a.is_del' => '0',
-    //         'a.fk_id_kategori'=>$id
-            
-    //     ];
-    //     $select = array(
-    //         'a.*',
-      
-    //         'b.nama_kategori as nama_kategori',
-    //         'b.id_kategori',
-    //         'c.nama_user as nama_pengarang'
-          
-    //     );
-
-    //     $this->db->select($select);
-    //     $this->db->from('artikel a');
-    //     $this->db->where($del);
-    //     $this->db->join('kategori b', 'a.fk_id_kategori = b.id_kategori');
-    //     $this->db->join('user c', 'a.created_by = c.id_user');
-    //     $this->db->order_by('id_artikel', 'desc');
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }  
-    // function jumlah_data(){
-	// 	return $this->db->get('artikel')->num_rows();
-	// }
-    // function jumlah_data_by_slug($slug){
-    //     $this->db->where('slug_kategori',$slug);
-    //     $this->db->join('kategori', 'fk_id_kategori = id_kategori');
-	// 	return $this->db->get('artikel')->num_rows();
-	// }
-    // public function data_artikel_page($number,$offset)
-    // {
-    //     $del=[
-    //         'a.is_del' => '0',
-   
-            
-    //     ];
-    //     $select = array(
-    //         'a.*',
-      
-    //         'b.nama_kategori as nama_kategori',
-    //         'b.id_kategori',
-    //         'c.nama_user as nama_pengarang'
-          
-    //     );
-
-    //     $this->db->select($select);
-    //     $this->db->from('artikel a');
-    //     $this->db->where($del);
-    //     $this->db->join('kategori b', 'a.fk_id_kategori = b.id_kategori');
-    //     $this->db->join('user c', 'a.created_by = c.id_user');
-    //     $this->db->order_by('id_artikel', 'desc');
-    //     $this->db->limit($number,$offset); 
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // } 
-    // public function data_artikel_page_id($number,$offset,$slug_kategori)
-    // {
-    //     $del=[
-    //         'a.is_del' => '0',
-    //         'b.slug_kategori'=>$slug_kategori
-            
-    //     ];
-    //     $select = array(
-    //         'a.*',
-      
-    //         'b.nama_kategori as nama_kategori',
-    //         'b.id_kategori',
-    //         'b.slug_kategori',
-    //         'c.nama_user as nama_pengarang'
-            
-    //     );
-
-    //     $this->db->select($select);
-    //     $this->db->from('artikel a');
-    //     $this->db->where($del);
-    //     $this->db->join('kategori b', 'a.fk_id_kategori = b.id_kategori', 'left');
-    //     $this->db->join('user c', 'a.created_by = c.id_user', 'left');
-    //     $this->db->order_by('id_artikel', 'desc');
-    //     $this->db->limit($number,$offset); 
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // } 
-    // function search($search){
-    //     $this->db->select("*");
-    //     $this->db->like($search);
-    //     $this->db->from('artikel');
-    //     $query = $this->db->get();
-    //     return $query->result();
-    // }
  
 }
