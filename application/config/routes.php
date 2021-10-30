@@ -56,3 +56,4 @@ $route['page/(:any)']  = 'page/index';
 $route['akad/(:any)']  = 'akad/index';
 
 
+

@@ -22,12 +22,37 @@ class Akad extends MY_Controller {
         $random = $foto[Rand(0, count($foto) - 1)];
         $tabel="em_meta";
         $meta = $this->M_crud->get_data($tabel);
+        $tabel="user";
+        $user = $this->M_crud->get_data_user($tabel);
         $tabel="em_website";
         $website = $this->M_crud->get_data($tabel);
         $tabel="em_link";
         $link = $this->M_crud->get_data_not_del($tabel);
         $tabel ='em_akad';
         $nama_slug="slug";
+        if($slug == ""){
+            
+            $akad= $this->M_crud->get_data($tabel);
+            
+            $tabel='em_akad_foto';
+            $foto_akad = $this->M_crud->get_data($tabel);
+               
+          
+          
+            $data = [
+                'foto'=> $random,
+                'meta'=>$meta,
+                'user'=>$user,
+                'website'=>$website,
+                'link'=>$link,
+                'akad'=>$akad,
+                'foto_akad'=>$foto_akad,
+              
+                
+            ];
+            $this->front($data,'front/konten/menu_akad.php');
+
+        }else{
         $akad= $this->M_crud->get_data_by_slug($tabel,$nama_slug, $slug);
         foreach ($akad as $a){
             $id_akad = $a->id;
@@ -40,6 +65,7 @@ class Akad extends MY_Controller {
         $data = [
             'foto'=> $random,
             'meta'=>$meta,
+            'user'=>$user,
             'website'=>$website,
             'link'=>$link,
             'akad'=>$akad,
@@ -47,6 +73,7 @@ class Akad extends MY_Controller {
             
         ];
 		$this->front($data,'front/konten/akad.php');
+        }
 	}
 }
 

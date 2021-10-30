@@ -4,7 +4,9 @@
 $random = (array) $foto;
 $meta_array = (array) $meta[0];
 $website_array = (array) $website[0];
-$akad_array = (array) $akad[0];
+
+
+
 
 ?>
 
@@ -376,6 +378,7 @@ $akad_array = (array) $akad[0];
       </div>
       <!-- /.container -->
     </section>
+
     <!-- /section -->
     <section class="wrapper bg-light wrapper-border">
       <div class="container inner py-8">
@@ -413,160 +416,78 @@ $akad_array = (array) $akad[0];
     <section class="wrapper bg-light">
       <div class="container py-14 py-md-16">
         <div class="row gx-lg-8 gx-xl-12">
-          <div class="col-lg-8">
-            <div class="blog classic-view">
-              
-              <!-- /.post -->
-              <article class="post">
-                <div class="card">
+          <div class="col-lg-12">
+            
+            <!-- /.blog -->
+            <div class="blog grid grid-view">
+              <div class="row  gx-md-12 gy-12 mb-12">
+                  <?php foreach($akad as $a){ ?>
+                    
+                <article class="post col-md-4">
+                  <div class="card">
+                 
                   <div class="post-slider card-img-top">
                     <div class="basic-slider owl-carousel dots-over" data-nav="true" data-margin="5">
-                      <?php foreach($foto_akad as $f){?>
-                      <div class="item"><img src="<?= base_url('galery/').$f->foto?>" class="" alt="" /></div>
-                      <?php }?>
+                    <?php foreach($foto_akad as $f){?>
+                   <?php if($f->id_akad === $a->id){ ?>
+                    <a href="<?= base_url()?>akad/<?=$a->slug?>">
+                     <div class="item"><img src="<?= base_url('galery/').$f->foto?>" class="" alt="" /></div>
+                     </a>
+                 <?php };?>
+                 <?php };?>
                     </div>
                     <!-- /.basic-slider -->
-                  </div>
-                  <!-- /.post-slider -->
-                  <div class="card-body">
-                    <div class="post-header">
-                      <div class="post-category text-line">
-                        <a href="#" class="hover" rel="category">Ideas</a>
+                  </div>  
+         
+                    <div class="card-body">
+                   
+                      <div class="post-header">
+                        <div class="post-category text-line">
+                          <a href="#" class="hover" rel="category">Coding</a>
+                        </div>
+                        <!-- /.post-category -->
+                        <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="blog-post.html"><?= $a->judul?></a></h2>
                       </div>
-                      <!-- /.post-category -->
-                      <h2 class="post-title mt-1 mb-0"><a class="link-dark" href="blog-post.html"><?=$akad_array['judul']?></a></h2>
+                      <!-- /.post-header -->
+                      <div class="post-content">
+                   
+                        <?= $small = substr($a->konten, 0, 300).'.....'?>
+                      </div>
+                      <!-- /.post-content -->
                     </div>
-                    <!-- /.post-header -->
-                    <div class="post-content">
-                    <?=$akad_array['konten']?>
-                    </div>
-                    <!-- /.post-content -->
-                  </div>
-                  <!--/.card-body -->
-                  <div class="card-footer">
+                    <!--/.card-body -->
+                    <div class="card-footer">
                     <ul class="post-meta d-flex mb-0">
                       <li class="post-date"><i class="uil uil-calendar-alt"></i><span>
-                        <?php $time = strtotime($akad_array['created_at']);
+                        <?php $time = strtotime($a->created_at);
                               echo $newformat = date('d-m-Y',$time);?>
                               </span></li>
                       <?php foreach($user as $u){
-                       if($akad_array['created_by'] == $u->id_user ) {?>
+                       if($a->created_by == $u->id_user ) {?>
                       <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By <?=$u->nama_user?></span></a></li>
                       <?php } } ?>
                       
                       
                     </ul>
-                    <!-- /.post-meta -->
+                      <!-- /.post-meta -->
+                    </div>
+                    <!-- /.card-footer -->
                   </div>
-                  <!-- /.card-footer -->
-                </div>
-                <!-- /.card -->
-              </article>
+                  <!-- /.card -->
+                </article>
+                <?php }?>
+                <!-- /.post -->
               
-              <!-- /.post -->
-              
-              <!-- /.post -->
+                <!-- /.post -->
+              </div>
+              <!-- /.row -->
             </div>
             <!-- /.blog -->
-           
-            
+          
             <!-- /nav -->
           </div>
           <!-- /column -->
-          <aside class="col-lg-4 sidebar mt-8 mt-lg-6">
-            <div class="widget">
-              <h4 class="widget-title mb-3">About Us</h4>
-              <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum. Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus.</p>
-              <nav class="nav social">
-                <a href="#"><i class="uil uil-twitter"></i></a>
-                <a href="#"><i class="uil uil-facebook-f"></i></a>
-                <a href="#"><i class="uil uil-dribbble"></i></a>
-                <a href="#"><i class="uil uil-instagram"></i></a>
-                <a href="#"><i class="uil uil-youtube"></i></a>
-              </nav>
-              <!-- /.social -->
-              <div class="clearfix"></div>
-            </div>
-            <!-- /.widget -->
-            <div class="widget">
-              <h4 class="widget-title mb-3">Popular Posts</h4>
-              <ul class="image-list">
-                <li>
-                  <figure class="rounded"><a href="blog-post.html"><img src="img/photos/a1.jpg" alt="" /></a></figure>
-                  <div class="post-content">
-                    <h6 class="mb-2"> <a class="link-dark" href="blog-post.html">Magna Mollis Ultricies</a> </h6>
-                    <ul class="post-meta">
-                      <li class="post-date"><i class="uil uil-calendar-alt"></i><span>26 Mar 2021</span></li>
-                      <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>3</a></li>
-                    </ul>
-                    <!-- /.post-meta -->
-                  </div>
-                </li>
-                <li>
-                  <figure class="rounded"> <a href="blog-post.html"><img src="img/photos/a2.jpg" alt="" /></a></figure>
-                  <div class="post-content">
-                    <h6 class="mb-2"> <a class="link-dark" href="blog-post.html">Ornare Nullam Risus</a> </h6>
-                    <ul class="post-meta">
-                      <li class="post-date"><i class="uil uil-calendar-alt"></i><span>16 Feb 2021</span></li>
-                      <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>6</a></li>
-                    </ul>
-                    <!-- /.post-meta -->
-                  </div>
-                </li>
-                <li>
-                  <figure class="rounded"><a href="blog-post.html"><img src="img/photos/a3.jpg" alt="" /></a></figure>
-                  <div class="post-content">
-                    <h6 class="mb-2"> <a class="link-dark" href="blog-post.html">Euismod Nullam Fusce</a> </h6>
-                    <ul class="post-meta">
-                      <li class="post-date"><i class="uil uil-calendar-alt"></i><span>8 Jan 2021</span></li>
-                      <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>5</a></li>
-                    </ul>
-                    <!-- /.post-meta -->
-                  </div>
-                </li>
-              </ul>
-              <!-- /.image-list -->
-            </div>
-            <!-- /.widget -->
-            <div class="widget">
-              <h4 class="widget-title mb-3">Categories</h4>
-              <ul class="unordered-list bullet-primary text-reset">
-                <li><a href="#">Teamwork (21)</a></li>
-                <li><a href="#">Ideas (19)</a></li>
-                <li><a href="#">Workspace (16)</a></li>
-                <li><a href="#">Coding (7)</a></li>
-                <li><a href="#">Meeting (12)</a></li>
-                <li><a href="#">Business Tips (14)</a></li>
-              </ul>
-            </div>
-            <!-- /.widget -->
-            <div class="widget">
-              <h4 class="widget-title mb-3">Tags</h4>
-              <ul class="list-unstyled tag-list">
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Still Life</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Urban</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Nature</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Landscape</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Macro</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Fun</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Workshop</a></li>
-                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill">Photography</a></li>
-              </ul>
-            </div>
-            <!-- /.widget -->
-            <div class="widget">
-              <h4 class="widget-title mb-3">Archive</h4>
-              <ul class="unordered-list bullet-primary text-reset">
-                <li><a href="#">February 2019</a></li>
-                <li><a href="#">January 2019</a></li>
-                <li><a href="#">December 2018</a></li>
-                <li><a href="#">November 2018</a></li>
-                <li><a href="#">October 2018</a></li>
-              </ul>
-            </div>
-            <!-- /.widget -->
-          </aside>
-          <!-- /column .sidebar -->
+          
         </div>
         <!-- /.row -->
       </div>
