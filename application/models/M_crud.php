@@ -54,6 +54,16 @@ class M_crud extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_data_pop($tabel,$pop)
+    {
+        
+        $this->db->select('*');
+        $this->db->from($tabel);
+        $this->db->order_by($pop,"desc");
+        $this->db->limit(3, 0);
+        $query = $this->db->get();
+        return $query->result();
+    }
     
     public function get_data_by_id($tabel,$nama_id, $id)
     {
@@ -101,6 +111,11 @@ class M_crud extends CI_Model {
     public function edit_data_by_id($tabel,$data,$nama_id,$id){
         $this->db->where($nama_id,$id);
 		return $this->db->update($tabel,$data);
+    }
+    public function edit_data_by_id_click($tabel,$nama_id,$id){
+        $this->db->where($nama_id, $id);
+        $this->db->set('clicked', 'clicked+1', FALSE);
+        $this->db->update($tabel);
     }
     public function edit_data_by_id_2($tabel,$data,$nama_id1,$nama_id2,$id1,$id2){
         $this->db->where($nama_id1,$id1);
