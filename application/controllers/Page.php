@@ -29,12 +29,16 @@ class Page extends MY_Controller {
         $tabel ='em_page';
         $nama_slug="slug";
         $page = $this->M_crud->get_data_by_slug($tabel,$nama_slug, $slug);
+        $random = (array) $foto;
+        $meta_array = (array) $meta[0];
+        $website_array = (array) $website[0];
+        $page_array = (array) $page[0];
         $data = [
             'foto'=> $random,
-            'meta'=>$meta,
-            'website'=>$website,
+            'meta_array'=>$meta_array,
+            'website_array'=>$website_array,
             'link'=>$link,
-            'page'=>$page
+            'page_array'=>$page_array
             
         ];
 		$this->front($data,'front/konten/page.php');
