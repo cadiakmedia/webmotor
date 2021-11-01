@@ -17,6 +17,15 @@ class M_crud extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_data_count($tabel)
+    {
+        
+        $this->db->select('*');
+        $this->db->from($tabel);
+        $this->db->where('is_del', '0');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
     public function get_data_user($tabel)
     {
         
@@ -35,6 +44,7 @@ class M_crud extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
     public function get_data_not_del($tabel)
     {
         

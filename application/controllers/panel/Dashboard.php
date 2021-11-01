@@ -12,7 +12,8 @@ class dashboard extends MY_Controller
         $this->load->library('datatables');
 
         $this->load->model('M_login');
-        // $this->load->model('M_crud');
+        $this->load->model('M_crud');
+        $this->load->model('M_statistik');
         $this->load->helper('form');
         $this->load->library('session');
     }
@@ -25,13 +26,44 @@ class dashboard extends MY_Controller
         if(!$Auth){
             redirect('gate/login');
         }
-
+        $tabel="em_foto";
+        $array_foto = $this->M_crud->get_data_not_del_status($tabel);
+        $tabel="em_akad";
+        $jumlah_akad = $this->M_crud->get_data_count($tabel);
+        $tabel="em_page";
+        $jumlah_page= $this->M_crud->get_data_count($tabel);
+        
+        
+        $bulan =[1,2,3,4,5,6,7,8,9,10,11,12];
+        json_encode($bulan);
+        $tabel="user_log";
+        $jumlah_pengunjung1 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[0]);
+        $jumlah_pengunjung2 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[1]); 
+        $jumlah_pengunjung3 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[2]); 
+        $jumlah_pengunjung4 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[3]); 
+        $jumlah_pengunjung5 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[4]); 
+        $jumlah_pengunjung6 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[5]);
+        $jumlah_pengunjung7 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[6]); 
+        $jumlah_pengunjung8 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[7]); 
+        $jumlah_pengunjung9 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[8]); 
+        $jumlah_pengunjung10 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[9]); 
+        $jumlah_pengunjung11 = $this->M_statistik->jumlah_pengunjung($tabel,$bulan[10]); 
+        $jumlah_pengunjung12 =$this->M_statistik->jumlah_pengunjung($tabel,$bulan[11]); 
+      
+        $jumlah_kunjungan = $this->M_statistik->jumlah_kunjungan($tabel);                   
+         
+        $jumlah_pengunjung = [$jumlah_pengunjung1,$jumlah_pengunjung2,$jumlah_pengunjung3,$jumlah_pengunjung4,$jumlah_pengunjung5,$jumlah_pengunjung6,$jumlah_pengunjung7,$jumlah_pengunjung8,$jumlah_pengunjung9,$jumlah_pengunjung10,$jumlah_pengunjung11,$jumlah_pengunjung12];
         $data = [
             'aksi'              => '',
             'sub_page_title'    => 'Dashboard',
             'page_title'        => 'Panel',
             'url'               => 'panel/dashboard/get_data_artikel',
             'data_user'         => $Auth,
+            'array_foto'       => $array_foto,
+            'jumlah_akad'       =>$jumlah_akad,
+            'jumlah_page'       =>$jumlah_page,
+            'jumlah_pengunjung' =>$jumlah_pengunjung,
+            'jumlah_kunjungan' =>$jumlah_kunjungan,
             'breadcrumbs'       => [
                 [
                     'href'  => '#',
