@@ -180,7 +180,7 @@ class Akun extends MY_Controller
         $csrf_hash = $this->security->get_csrf_hash();  
         
           $this->form_validation->set_rules('nama_user', 'Nama', 'required');
-          $this->form_validation->set_rules('username', 'Username', 'required');
+          $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
          
          
           if ($this->form_validation->run() == FALSE){
@@ -246,7 +246,7 @@ class Akun extends MY_Controller
         $csrf_hash = $this->security->get_csrf_hash();  
         
           $this->form_validation->set_rules('nama_user', 'Nama', 'required');
-          $this->form_validation->set_rules('username', 'Username', 'required');
+          $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
           $this->form_validation->set_rules('password', 'new password', 'required');
           $this->form_validation->set_rules('password1', 'confirm password', 'required|matches[password]');
          
@@ -349,9 +349,11 @@ class Akun extends MY_Controller
         $block =$this->M_akun->unblock($id);
         redirect('panel/akun');
 
-    }  public function check_username_exists_klien($username){
-        $this->form_validation->set_message('check_username_exists', 'Username Sudah didaftarkan. Silahkan gunakan Nomor lain');
-        if($this->M_login->check_username_exists_klien($username)){
+    }  
+
+    public function check_username_exists($username){
+        $this->form_validation->set_message('check_username_exists', 'Username Sudah didaftarkan. Silahkan gunakan username lain');
+        if($this->M_login->checkusername_exists($username)){
             return true;
         } else {
             return false;

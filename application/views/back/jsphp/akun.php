@@ -120,16 +120,21 @@ function block(){
 				
 	            success: function(data) {
 	                // Update CSRF hash
-                    csrfHash = data.token_emot;
+                    csrfHash = data.token;
                     $('.token_emot').val(csrfHash);
-
+                  console.log(data);
                 if(data.error){
                   csrfHash = data.token;
+                  $('.token_emot').val(csrfHash);
+
                               swal({
                                   type: 'Danger',
-                                  title: 'Data gagal Ditambahkan',
+                                  title: data.error1,
                                   
-                              })
+                                }).then(function() {  
+                 location.reload(); 
+
+});
           
                 }else if(data.success){         
                               swal({

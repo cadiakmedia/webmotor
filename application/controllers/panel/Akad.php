@@ -200,7 +200,8 @@ class Akad extends MY_Controller
             foreach($user as $u){
                 if($field->created_by == $u->id_user ) {
                     $pembuat = $u->nama_user;
-                      } }
+                      } 
+                    }
             $no++;
             $row = array();
             $row[] = $no;
