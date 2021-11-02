@@ -134,7 +134,7 @@ function block(){
                                 }).then(function() {  
                  location.reload(); 
 
-});
+              });
           
                 }else if(data.success){         
                               swal({
@@ -144,7 +144,7 @@ function block(){
                               }).then(function() {  
                  location.reload(); 
 
-});
+              });
                             }
                 }
 	        });

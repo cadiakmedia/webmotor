@@ -1,18 +1,5 @@
 
-    <section class="wrapper bg-soft-primary">
-      <div class="container pt-10 pb-5 pt-md-14 pb-md-8 text-center">
-        <div class="row">
-          <div class="col-xl-5 mx-auto mb-6">
-            <h1 class="display-1 mb-3"><?= $page_array['judul']?></h1>
-            <p class="lead mb-0"><?= $page_array['konten']?>.</p>
-          </div>
-          <!-- /column -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container -->
-    </section>
-    <!-- /section -->
+
     
 
 <section class="wrapper bg-light">
@@ -26,7 +13,7 @@
       <!--/column -->
       <div class="col-lg-5">
         <h2 class="fs-15 text-uppercase text-line text-primary mb-3">Why Choose Us?</h2>
-        <h3 class="display-5 mb-7">A few reasons why our valued customers choose us.</h3>
+        <h3 class="display-5 mb-7"><?= $page_array['judul']?></h3>
         <div class="accordion accordion-wrapper" id="accordionExample">
           <div class="card plain accordion-item">
             <div class="card-header" id="headingOne">
@@ -35,7 +22,7 @@
             <!--/.card-header -->
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="card-body">
-                <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+              <?= $page_array['konten']?>
               </div>
               <!--/.card-body -->
             </div>
