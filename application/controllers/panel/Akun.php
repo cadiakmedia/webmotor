@@ -69,17 +69,23 @@ class Akun extends MY_Controller
         $list = $this->M_akun->get_datatables();
         $data = array();
         $no = $_POST['start'];
+        $tabel="user";
+        $user = $this->M_crud->get_data_user($tabel);
         foreach ($list as $field) {
             $waktu=$field->created_at;
             $time = strtotime($waktu);
             $newformat = date('d-m-Y',$time);
             $jam =date('H:i' ,$time);
+            foreach($user as $u){
+                if($field->created_by == $u->id_user ) {
+                    $pembuat = $u->nama_user;
+                      } }
             $no++;
             $row = array();
             $row[] = $no;
             $row[] = $field->nama_user;
             $row[] = $field->username;
-            $row[] = $field->created_by. " pada tanggal ". $newformat." Pukul ".$jam;
+            $row[] = $pembuat. " pada tanggal ". $newformat." Pukul ".$jam;
             
             if($field->is_block== '0'){ 
                 

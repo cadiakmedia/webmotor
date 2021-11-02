@@ -186,17 +186,23 @@ class Page extends MY_Controller
         // die;
         $data = array();
         $no = $_POST['start'];
+        $tabel="user";
+        $user = $this->M_crud->get_data_user($tabel);
         foreach ($list as $field) {
             $waktu=$field->created_at;
             $time = strtotime($waktu);
             $newformat = date('d-m-Y',$time);
             $jam =date('H:i' ,$time);
             $no++;
+            foreach($user as $u){
+                if($field->created_by == $u->id_user ) {
+                    $pembuat = $u->nama_user;
+                      } }
             $row = array();
             $row[] = $no;
             $row[] = $field->judul;
             $row[] = $field->slug;
-            $row[] = $field->created_by. " pada tanggal ". $newformat." Pukul ".$jam;
+            $row[] = $pembuat. " pada tanggal ". $newformat." Pukul ".$jam;
             $aksi = '<span style="overflow: visible; position: relative; width: 125px;">
           
             <a href="'.base_url() .'page/'.$field->slug.'" id="view"  class="btn btn-sm btn-clean btn-icon mr-2" title="view details">
