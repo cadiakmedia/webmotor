@@ -13,15 +13,14 @@ class M_statistik extends CI_Model {
     public function insert_log($tabel,$data){
         $query= $this->db->insert($tabel,$data);
         if($query){
-            return true;
+           
             return $query;
         }else{
-            return false;
+            return $query;
         }
     }
     public function jumlah_kunjungan($tabel)
-    {
-        
+    {   
         $this->db->select('*');
         $this->db->from($tabel);
         $query = $this->db->get();

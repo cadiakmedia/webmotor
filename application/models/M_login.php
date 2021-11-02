@@ -60,5 +60,13 @@ class M_login extends CI_Model {
           }
     }
 
+    public function checkusername_exists_klien($username){
+        $query = $this->db->get_where('user', array('usename' => $username));
+        if(empty($query->row_array())){
+        return true;
+        } else {
+        return false;
+        }
+    }
  
 }

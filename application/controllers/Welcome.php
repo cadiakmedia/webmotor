@@ -42,8 +42,8 @@ class Welcome extends MY_Controller {
             
         ];
     
-        $insert = $this->M_statistik->insert_log($tabel,$data_log);
-        
+        $this->M_statistik->insert_log($tabel,$data_log);
+     
         $data = [
             'foto_random'=> $foto_random,
             'meta_array'=>$meta_array,
