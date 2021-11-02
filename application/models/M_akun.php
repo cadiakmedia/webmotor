@@ -3,7 +3,7 @@
 class M_akun extends CI_Model {
  
     var $table = 'user'; //nama tabel dari database
-    var $column_order = array(null,'nama_user','username'); //field yang ada di table user
+    var $column_order = array(null,'nama_user','username',null,null,null); //field yang ada di table user
     var $column_search = array('nama_user','username'); //field yang diizin untuk pencarian 
     var $order = array('id_user' => 'desc'); // default order 
  

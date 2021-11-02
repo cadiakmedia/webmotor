@@ -79,13 +79,17 @@ class Akun extends MY_Controller
             foreach($user as $u){
                 if($field->created_by == $u->id_user ) {
                     $pembuat = $u->nama_user;
-                      } }
+                   
+                      }else if($field->created_by == 0 ){
+                        $pembuat = "0";
+                      }
+                    }
             $no++;
             $row = array();
             $row[] = $no;
             $row[] = $field->nama_user;
             $row[] = $field->username;
-            $row[] = $pembuat. " pada tanggal ". $newformat." Pukul ".$jam;
+            $row[] = "$pembuat pada tanggal ". $newformat." Pukul ".$jam;
             
             if($field->is_block== '0'){ 
                 
